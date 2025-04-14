@@ -8,12 +8,16 @@
     <ApplicationIcon>w8h9p-6i8rs-001.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Assets\Avatars\**" />
     <Compile Remove="Control\**" />
     <Compile Remove="Resource\**" />
+    <EmbeddedResource Remove="Assets\Avatars\**" />
     <EmbeddedResource Remove="Control\**" />
     <EmbeddedResource Remove="Resource\**" />
+    <None Remove="Assets\Avatars\**" />
     <None Remove="Control\**" />
     <None Remove="Resource\**" />
+    <Page Remove="Assets\Avatars\**" />
     <Page Remove="Control\**" />
     <Page Remove="Resource\**" />
   </ItemGroup>
@@ -39,13 +43,17 @@
     <Resource Include="Images\Lock.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Avatars\avatar-2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Update="Frpc\frpc.exe">
@@ -56,6 +64,10 @@
     </None>
     <None Update="Frpc\frpc_full.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 </Project>

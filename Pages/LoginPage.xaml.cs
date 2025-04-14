@@ -55,12 +55,20 @@ namespace UIKitTutorials.Pages
             textPassword.Focus();
         }
 
-        // 还需要处理当密码框失去焦点且内容为空时，重新显示提示文字
+        // 当密码框失去焦点且内容为空时，重新显示提示文字
         private void textPassword_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(textPassword.Password))
             {
                 txtPassword.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void textUser_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textUser.Text))
+            {
+                txtUser.Visibility = Visibility.Visible;
             }
         }
 
@@ -186,7 +194,7 @@ namespace UIKitTutorials.Pages
             currentWindow.Close();
         }
 
-        private void textEmail_MouseDown(object sender, MouseButtonEventArgs e)
+        private void textUser_MouseDown(object sender, MouseButtonEventArgs e)
         {
             txtUser.Visibility = string.IsNullOrEmpty(txtUser.Text) ? Visibility.Visible : Visibility.Collapsed;
             textUser.Focus();

@@ -53,8 +53,8 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Path Data="{DynamicResource user}" Width="24" Height="24" Stroke="#BDBDBD" StrokeThickness="1"/>
-                                    <TextBlock x:Name="txtUser" MouseDown="textEmail_MouseDown" Text="账号" Style="{StaticResource textHint}" VerticalAlignment="Center" />
-                                    <TextBox Name="textUser"  Style="{StaticResource textBox}" />
+                                    <TextBlock x:Name="txtUser" MouseDown="textUser_MouseDown" Text="账号" Style="{StaticResource textHint}" VerticalAlignment="Center" />
+                                    <TextBox Name="textUser" LostFocus="textUser_LostFocus"  Style="{StaticResource textBox}" />
                                 </Grid>
                             </Border>
 

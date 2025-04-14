@@ -1,6 +1,8 @@
 ﻿using FrpcUI.Class;
+using FrpcUI.Pages;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows;
@@ -14,6 +16,8 @@ namespace UIKitTutorials
     /// </summary>
     public partial class App : Application
     {
+        public static Process FrpcProcess { get; set; }
+
         private const string LoginStateFile = "loginState.json";
         private const int WindowWidth = 900;
         private const int WindowHeight = 550;
@@ -149,4 +153,6 @@ namespace UIKitTutorials
             }
         }
     }
+
+
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b06q3uUQKSk=",
+  "dgSpecHash": "EfFyKHpj0w8=",
   "success": true,
-  "projectFilePath": "C:\\FrpcUI\\FrpcUI.csproj",
+  "projectFilePath": "D:\\FTP\\FrpcUI\\FrpcUI\\FrpcUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\樊高峰\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

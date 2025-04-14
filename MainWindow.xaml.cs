@@ -1,18 +1,16 @@
 ﻿using FrpcUI.Class;
+using FrpcUI.Pages;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-
+using UIKitTutorials.Pages;
 
 namespace UIKitTutorials
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
-
     public partial class MainWindow : Window
     {
         public class UserProfile
@@ -24,32 +22,93 @@ namespace UIKitTutorials
 
         public ObservableCollection<UserProfile> UserProfiles { get; set; }
 
+        // 页面缓存（避免状态丢失）
+        private HomePage _homePage;
+        private SuiDaoPage _suiDaoPage;
+        private Peizhiwenjian _peizhiwenjianPage;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            // 在构造函数中设置初始页面
-            PagesNavigation.Source = new Uri("Pages/HomePage.xaml", UriKind.Relative);
-            // 隐藏导航栏但保留内容显示
-            PagesNavigation.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-
-            // 加载登录状态
-            LoginModel savedLogin = ((App)Application.Current).LoadLoginState();
-
-            // 初始化数据源
+            // 初始化用户数据
+            var savedLogin = ((App)Application.Current).LoadLoginState();
             UserProfiles = new ObservableCollection<UserProfile>
             {
-                 new UserProfile { Name = savedLogin.RealName, Mail = savedLogin.Mail, UserImg = savedLogin.UserImg }
+                new UserProfile { Name = savedLogin.RealName, Mail = savedLogin.Mail, UserImg = savedLogin.UserImg }
             };
-
-            // 设置数据上下文
             this.DataContext = this;
+
+            // 初始化页面并导航
+            _homePage = new HomePage();
+            PagesNavigation.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            PagesNavigation.Navigate(_homePage);
         }
 
+        // ========= 页面导航 =========
 
+        private void rdHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (_homePage == null)
+                _homePage = new HomePage();
+            PagesNavigation.Navigate(_homePage);
+        }
 
+        private void SuiDaoLieBiao_Click(object sender, RoutedEventArgs e)
+        {
+            if (_suiDaoPage == null)
+                _suiDaoPage = new SuiDaoPage();
+            PagesNavigation.Navigate(_suiDaoPage);
+        }
 
+        private void Peizhiwenjian_Click(object sender, RoutedEventArgs e)
+        {
+            if (_peizhiwenjianPage == null)
+                _peizhiwenjianPage = new Peizhiwenjian();
+            PagesNavigation.Navigate(_peizhiwenjianPage);
+        }
 
+        private void YuMing_Click(object sender, RoutedEventArgs e)
+        {
+            // 添加需要时再处理
+        }
+
+        // ========= 页面动画 =========
+
+        private void SuiDao_Click(object sender, RoutedEventArgs e)
+        {
+            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
+                return;
+
+            SubButtonsPanel.Visibility = Visibility.Visible;
+            var expandAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 100,
+                Duration = TimeSpan.FromMilliseconds(300)
+            };
+            SubButtonsPanel.BeginAnimation(HeightProperty, expandAnimation);
+        }
+
+        private void UnSuiDao_Click(object sender, RoutedEventArgs e)
+        {
+            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
+                return;
+
+            var collapseAnimation = new DoubleAnimation
+            {
+                From = SubButtonsPanel.ActualHeight,
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(300)
+            };
+            collapseAnimation.Completed += (s, _) =>
+            {
+                SubButtonsPanel.Visibility = Visibility.Collapsed;
+            };
+            SubButtonsPanel.BeginAnimation(HeightProperty, collapseAnimation);
+        }
+
+        // ========= 窗口控制 =========
 
         private void btnPageClose_Click(object sender, RoutedEventArgs e)
         {
@@ -58,12 +117,11 @@ namespace UIKitTutorials
 
         private void btnPageRestore_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this) != null)
-            {
-                Window.GetWindow(this).WindowState = Window.GetWindow(this).WindowState == WindowState.Maximized
+            var window = Window.GetWindow(this);
+            if (window != null)
+                window.WindowState = window.WindowState == WindowState.Maximized
                     ? WindowState.Normal
                     : WindowState.Maximized;
-            }
         }
 
         private void btnPageMinimize_Click(object sender, RoutedEventArgs e)
@@ -74,89 +132,12 @@ namespace UIKitTutorials
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-            {
                 Window.GetWindow(this)?.DragMove();
-            }
         }
 
         private void PagesNavigation_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // 设置Handled属性为true，阻止事件冒泡
             e.Handled = true;
         }
-
-        private void rdHome_Click(object sender, RoutedEventArgs e)
-        {
-
-            PagesNavigation.Source = new Uri("Pages/HomePage.xaml", UriKind.Relative);
-        }
-
-
-        private void SuiDao_Click(object sender, RoutedEventArgs e)
-        {
-            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
-            {
-
-            }
-            else
-            {
-                // 设置子按钮组可见状态并展开高度动画
-                SubButtonsPanel.Visibility = Visibility.Visible;
-
-                var expandAnimation = new DoubleAnimation
-                {
-                    From = 0,
-                    To = 100, // 根据UI高度调整
-                    Duration = TimeSpan.FromMilliseconds(300)
-                };
-
-                SubButtonsPanel.BeginAnimation(HeightProperty, expandAnimation);
-            }
-
-        }
-
-        private void UnSuiDao_Click(object sender, RoutedEventArgs e)
-        {
-            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
-            {
-
-            }
-            else
-            {
-                var collapseAnimation = new DoubleAnimation
-                {
-                    From = SubButtonsPanel.ActualHeight,
-                    To = 0,
-                    Duration = TimeSpan.FromMilliseconds(300)
-                };
-
-                collapseAnimation.Completed += (s, _) =>
-                {
-                    SubButtonsPanel.Visibility = Visibility.Collapsed;
-                };
-
-                SubButtonsPanel.BeginAnimation(HeightProperty, collapseAnimation);
-            }
-        }
-
-        private void SuiDaoLieBiao_Click(object sender, RoutedEventArgs e)
-        {
-
-            PagesNavigation.Source = new Uri("Pages/SuiDaoPage.xaml", UriKind.Relative);
-        }
-
-        private void Peizhiwenjian_Click(object sender, RoutedEventArgs e)
-        {
-
-            PagesNavigation.Source = new Uri("Pages/Peizhiwenjian.xaml", UriKind.Relative);
-        }
-
-        private void YuMing_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
     }
 }

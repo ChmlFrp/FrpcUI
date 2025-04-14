@@ -1,5 +1,10 @@
-﻿using System;
+﻿using FrpcUI.Services;
+using System;
 using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows;
+using UIKitTutorials;
 
 namespace FrpcUI.Class
 {
@@ -48,14 +53,73 @@ namespace FrpcUI.Class
 
     public class LogingModelViewModel
     {
-        public ObservableCollection<LoginModel> LoginModels { get; set; }
+        private readonly ApiService _apiService;
+
+        public ObservableCollection<LoginModel> LoginModels { get; } = new ObservableCollection<LoginModel>();
+
         public LogingModelViewModel()
         {
-            LoginModels = new ObservableCollection<LoginModel>();
-
+            _apiService = new ApiService(new HttpClient());
         }
 
+        public async Task LoadUserDataAsync()
+        {
+            var savedLogin = ((App)Application.Current).LoadLoginState();
+            if (savedLogin == null || string.IsNullOrEmpty(savedLogin.Token))
+                return;
 
+            var response = await _apiService.GetUserInfoAsync(savedLogin.Token);
+
+            if (response.Success)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    LoginModels.Add(new LoginModel
+                    {
+                        Msg = response.UserInfo.Msg,
+                        Code = response.UserInfo.Code,
+                        RealName = response.UserInfo.RealName,
+                        tunnelCount = response.UserInfo.TunnelCount,
+                        Name = response.UserInfo.Name,
+                        Token = response.UserInfo.Token,
+                        QianDao = response.UserInfo.QianDao,
+                        UserGroup = response.UserInfo.UserGroup,
+                        Integral = response.UserInfo.Integral,
+                        AbroadBandwidth = response.UserInfo.AbroadBandwidth,
+                        Bandwidth = response.UserInfo.Bandwidth,
+                        QQ = response.UserInfo.QQ,
+                        Tunnel = response.UserInfo.Tunnel,
+                        UsedTunnel = response.UserInfo.UsedTunnel,
+                        Mail = response.UserInfo.Mail,
+                        UserID = response.UserInfo.UserID,
+                        UserImg = response.UserInfo.UserImg,
+                        IdentityID = response.UserInfo.IdentityID,
+                        DateOut = response.UserInfo.DateOut
+                    });
+                });
+            }
+            else if (response.ShouldLogout)
+            {
+                HandleLogout();
+            }
+            else
+            {
+                MessageBox.Show(response.ErrorMessage);
+            }
+        }
+
+        private void HandleLogout()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var currentWindow = Application.Current.MainWindow;
+                if (currentWindow != null)
+                {
+                    new MainWindow().Show();
+                    currentWindow.Close();
+                }
+            });
+        }
     }
 
 
