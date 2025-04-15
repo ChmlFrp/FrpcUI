@@ -1,18 +1,16 @@
 ﻿using FrpcUI.Class;
-using FrpcUI.Services;
-using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Http;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using UIKitTutorials;
 
 namespace FrpcUI.Pages
 {
@@ -23,9 +21,11 @@ namespace FrpcUI.Pages
         private static readonly Geometry StopIcon = Geometry.Parse("M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z");
 
         public LogingModelViewModel ViewModel { get; }
-        private Process _frpcProcess;
+        private readonly ConcurrentDictionary<string, (Process Process, CancellationTokenSource Cts)> _frpcProcesses = new();
         private bool _isFrpcRunning;
         private CancellationTokenSource _outputReadCancellationTokenSource;
+
+        private readonly ConcurrentDictionary<string, (bool IsRunning, string OutputText)> _iniFileStates = new();
 
         public HomePage()
         {
@@ -66,40 +66,110 @@ namespace FrpcUI.Pages
             }
         }
 
+        private void ShowLoadingGif()
+        {
+            LoadingGif.Visibility = Visibility.Visible;
+        }
+
+        private void HideLoadingGif()
+        {
+            LoadingGif.Visibility = Visibility.Collapsed;
+        }
+
+        public void Shuaxing_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadIniFiles();
+        }
+
         // 运行或停止FRPC点击事件处理
         public async void RunFrpc_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not Button button) return;
 
-            if (_isFrpcRunning)
+            var iniFileName = ViewModel.SelectedIniFile;
+            if (string.IsNullOrEmpty(iniFileName))
             {
-                await StopFrpcProcessAsync();
+                ShowMessageBox("请先选择一个配置文件！");
+                return;
+            }
+
+            if (_frpcProcesses.TryGetValue(iniFileName, out var processInfo))
+            {
+                // 如果已经有这个配置文件的进程在运行，则停止它
+                await StopFrpcProcessAsync(iniFileName);
                 UpdateButtonContent(button, "运行", PlayIcon, PrimaryColor);
+                _iniFileStates[iniFileName] = (false, cmdOutput.Text);
             }
             else
             {
-                if (StartFrpcProcess())
+                ShowLoadingGif();
+                await Task.Delay(500);
+
+                bool started = await Task.Run(() => StartFrpcProcess(iniFileName));
+
+                if (started)
                 {
                     _isFrpcRunning = true;
                     UpdateButtonContent(button, "停止", StopIcon, Colors.Red);
-                    _ = ReadOutputAsync(_frpcProcess.StandardOutput.BaseStream);
+                    _iniFileStates[iniFileName] = (true, cmdOutput.Text);
                 }
+
+                HideLoadingGif();
             }
         }
 
+        // 添加一个方法来处理配置文件切换
+        public void OnIniFileSelectionChanged()
+        {
+            var iniFileName = ViewModel.SelectedIniFile;
+            if (string.IsNullOrEmpty(iniFileName)) return;
+
+            // 保存当前配置文件的状态
+            if (!string.IsNullOrEmpty(ViewModel.PreviousIniFile))
+            {
+                _iniFileStates[ViewModel.PreviousIniFile] =
+                    (_frpcProcesses.ContainsKey(ViewModel.PreviousIniFile), cmdOutput.Text);
+            }
+
+            // 恢复或初始化新选择的配置文件状态
+            if (_iniFileStates.TryGetValue(iniFileName, out var state))
+            {
+                // 恢复之前的状态
+                UpdateButtonContent(EditButton, state.IsRunning ? "停止" : "运行",
+                    state.IsRunning ? StopIcon : PlayIcon,
+                    state.IsRunning ? Colors.Red : PrimaryColor);
+                cmdOutput.Text = state.OutputText;
+            }
+            else
+            {
+                // 初始状态
+                UpdateButtonContent(EditButton, "运行", PlayIcon, PrimaryColor);
+                cmdOutput.Clear();
+            }
+
+            ViewModel.PreviousIniFile = iniFileName;
+        }
+
+        private void IniFile_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            OnIniFileSelectionChanged();
+        }
+
         // 启动FRPC进程
-        private bool StartFrpcProcess()
+        private bool StartFrpcProcess(string iniFileName)
         {
             try
             {
-                var frpcPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Frpc", "frpc.exe");
                 var workingDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Frpc");
+                var iniFilePath = Path.Combine(workingDir, iniFileName);
+                var frpcPath = Path.Combine(workingDir, "frpc.exe");
 
-                _frpcProcess = new Process
+                var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = frpcPath,
+                        Arguments = $"-c \"{iniFilePath}\"",
                         RedirectStandardOutput = true,
                         UseShellExecute = false,
                         CreateNoWindow = true,
@@ -108,10 +178,25 @@ namespace FrpcUI.Pages
                     EnableRaisingEvents = true
                 };
 
-                _frpcProcess.Exited += (s, e) => Dispatcher.Invoke(() => _isFrpcRunning = false);
-                _outputReadCancellationTokenSource = new CancellationTokenSource();
+                var cts = new CancellationTokenSource();
 
-                return _frpcProcess.Start();
+                process.Exited += (s, e) =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        _frpcProcesses.TryRemove(iniFileName, out _);
+                        if (_frpcProcesses.IsEmpty) _isFrpcRunning = false;
+                    });
+                };
+
+                if (process.Start())
+                {
+                    _frpcProcesses[iniFileName] = (process, cts);
+                    _ = ReadOutputAsync(iniFileName, process.StandardOutput.BaseStream, cts.Token);
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
@@ -121,18 +206,18 @@ namespace FrpcUI.Pages
         }
 
         // 异步停止FRPC进程
-        private async Task StopFrpcProcessAsync()
+        private async Task StopFrpcProcessAsync(string iniFileName)
         {
-            if (_frpcProcess == null) return;
+            if (!_frpcProcesses.TryGetValue(iniFileName, out var processInfo)) return;
 
             try
             {
-                _outputReadCancellationTokenSource?.Cancel();
+                processInfo.Cts?.Cancel();
 
-                if (!_frpcProcess.HasExited)
+                if (!processInfo.Process.HasExited)
                 {
-                    _frpcProcess.Kill();
-                    await _frpcProcess.WaitForExitAsync().ConfigureAwait(false);
+                    processInfo.Process.Kill();
+                    await processInfo.Process.WaitForExitAsync().ConfigureAwait(false);
                 }
 
                 cmdOutput.Clear();
@@ -143,27 +228,29 @@ namespace FrpcUI.Pages
             }
             finally
             {
-                _isFrpcRunning = false;
-                _frpcProcess?.Dispose();
-                _frpcProcess = null;
+                _frpcProcesses.TryRemove(iniFileName, out _);
+                if (_frpcProcesses.IsEmpty) _isFrpcRunning = false;
+                processInfo.Process?.Dispose();
+                processInfo.Cts?.Dispose();
             }
         }
 
         // 异步读取FRPC进程输出
-        private async Task ReadOutputAsync(Stream stream)
+        private async Task ReadOutputAsync(string iniFileName, Stream stream, CancellationToken cancellationToken)
         {
             try
             {
                 using var reader = new StreamReader(stream);
                 var buffer = new char[4096];
 
-                while (!_outputReadCancellationTokenSource.IsCancellationRequested)
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    var bytesRead = await reader.ReadAsync(buffer, 0, buffer.Length);
+                    // 修改为使用正确的 ReadAsync 重载
+                    var bytesRead = await reader.ReadAsync(buffer, cancellationToken);
                     if (bytesRead == 0) break;
 
                     var text = new string(buffer, 0, bytesRead);
-                    AppendToTextBox(text);
+                    AppendToTextBox($"[{iniFileName}] {text}");
                 }
             }
             catch (OperationCanceledException)
@@ -227,11 +314,14 @@ namespace FrpcUI.Pages
         // 应用程序退出事件处理
         private async void OnApplicationExit(object sender, ExitEventArgs e)
         {
-            if (_isFrpcRunning && _frpcProcess != null)
+            var tasks = new List<Task>();
+            foreach (var (iniFileName, _) in _frpcProcesses.ToList())
             {
-                await StopFrpcProcessAsync();
+                tasks.Add(StopFrpcProcessAsync(iniFileName));
             }
-            
+
+            await Task.WhenAll(tasks);
+            ViewModel.Cleanup();
         }
     }
 }

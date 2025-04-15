@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/bin/Debug/net8.0-windows/Frpc/frpc_config_湖南娄底.ini
+/bin/Debug/net8.0-windows/Frpc/frpc_config_中国广州.ini
+/bin/Debug/net8.0-windows/Frpc/frpc_config_日本东京-2.ini

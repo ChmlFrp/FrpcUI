@@ -1,7 +1,11 @@
 ﻿using FrpcUI.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using UIKitTutorials;
@@ -51,15 +55,81 @@ namespace FrpcUI.Class
         public DateTime? DateOut { get; set; }
     }
 
-    public class LogingModelViewModel
+    public class LogingModelViewModel : INotifyPropertyChanged
     {
         private readonly ApiService _apiService;
 
         public ObservableCollection<LoginModel> LoginModels { get; } = new ObservableCollection<LoginModel>();
 
+        private readonly string _folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Frpc");
+        private FileSystemWatcher _fileSystemWatcher;
+
+        public ObservableCollection<string> IniFiles { get; } = new ObservableCollection<string>();
+
+        public string PreviousIniFile { get; set; }
+
         public LogingModelViewModel()
         {
+            LoadIniFiles();
+            SetupFileSystemWatcher();
             _apiService = new ApiService(new HttpClient());
+        }
+
+        private string _selectedIniFile;
+        public string SelectedIniFile
+        {
+            get => _selectedIniFile;
+            set
+            {
+                if (_selectedIniFile != value)
+                {
+                    _selectedIniFile = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public void LoadIniFiles()
+        {
+            if (Directory.Exists(_folderPath))
+            {
+                var files = Directory.GetFiles(_folderPath, "*.ini").Select(Path.GetFileName).ToList();
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    IniFiles.Clear();
+                    foreach (var file in files)
+                    {
+                        IniFiles.Add(file);
+                    }
+                });
+            }
+        }
+
+        private void SetupFileSystemWatcher()
+        {
+            _fileSystemWatcher = new FileSystemWatcher(_folderPath)
+            {
+                NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite,
+                Filter = "*.ini",
+                EnableRaisingEvents = true
+            };
+
+            _fileSystemWatcher.Created += (s, e) => LoadIniFiles();
+            _fileSystemWatcher.Deleted += (s, e) => LoadIniFiles();
+            _fileSystemWatcher.Renamed += (s, e) => LoadIniFiles();
+        }
+
+        public void Cleanup()
+        {
+            _fileSystemWatcher?.Dispose();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public async Task LoadUserDataAsync()

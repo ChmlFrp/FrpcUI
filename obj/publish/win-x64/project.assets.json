@@ -277,11 +277,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\FrpcUI\\FrpcUI.csproj",
+      "projectUniqueName": "D:\\FTP\\FrpcUI\\FrpcUI\\FrpcUI.csproj",
       "projectName": "FrpcUI",
-      "projectPath": "C:\\FrpcUI\\FrpcUI.csproj",
+      "projectPath": "D:\\FTP\\FrpcUI\\FrpcUI\\FrpcUI.csproj",
       "packagesPath": "C:\\Users\\樊高峰\\.nuget\\packages\\",
-      "outputPath": "C:\\FrpcUI\\obj\\publish\\win-x64\\",
+      "outputPath": "D:\\FTP\\FrpcUI\\FrpcUI\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Visual Studio\\SDK\\Microsoft Visual Studio\\Shared\\NuGetPackages"
