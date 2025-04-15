@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\FrpcUI\obj\Release\net8.0-windows\
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\
 FrpcUI
 none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\FrpcUI\App.xaml
+D:\FTP\FrpcUI\FrpcUI\App.xaml
 131802693007
 2-1360005496
-25-1043820172
+26731818804
 200-1547898610
 Assets\Icons\Icons.xaml;MainWindow.xaml;Pages\GuangYuPage.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;Pages\Peizhiwenjian.xaml;Pages\SuiDaoPage.xaml;Pages\YuMingPage.xaml;Styles\MainStyle.xaml;Themes\LightTheme.xaml;Windows\Cuangjiansuidao.xaml;Windows\Tianjiasuidao.xaml;Windows\Tianjiasuidao2.xaml;
 
-True
+False
 

@@ -22,8 +22,10 @@
     <Page Remove="Resource\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Class\AsyncRelayCommand.cs" />
     <Compile Remove="Class\BooleanToVisibilityConverter.cs" />
     <Compile Remove="Class\CompositeViewModel.cs" />
+    <Compile Remove="Class\FrpcViewModel.cs" />
     <Compile Remove="Class\Huoqusuidao.cs" />
     <Compile Remove="Class\SuidaoService.cs" />
     <Compile Remove="Class\SuidaoViewModel.cs" />
@@ -31,22 +33,25 @@
     <Compile Remove="Class\VisualTreeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Images\close.png" />
+    <None Remove="Images\Email.png" />
+    <None Remove="Images\facebook.png" />
+    <None Remove="Images\google.png" />
+    <None Remove="Images\linkedin.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\w8h9p-6i8rs-001.ico" />
     <Content Include="w8h9p-6i8rs-001.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\close.png" />
-    <Resource Include="Images\Email.png" />
-    <Resource Include="Images\facebook.png" />
-    <Resource Include="Images\google.png" />
-    <Resource Include="Images\linkedin.png" />
     <Resource Include="Images\Lock.png" />
+    <Resource Include="Images\loading.gif" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">

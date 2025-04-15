@@ -1,10 +1,10 @@
-﻿using FrpcUI.Class;
-using FrpcUI.Pages;
+﻿using FrpcUI.Pages;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using UIKitTutorials.Pages;
@@ -110,24 +110,57 @@ namespace UIKitTutorials
 
         // ========= 窗口控制 =========
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AnimateWindow(IntPtr hwnd, int dwTime, int dwFlags);
+
+        // 动画标志
+        const int AW_HIDE = 0x00010000;        // 隐藏窗口
+        const int AW_ACTIVATE = 0x00020000;    // 激活窗口
+        const int AW_SLIDE = 0x00040000;       // 滑动动画
+        const int AW_BLEND = 0x00080000;       // 淡入淡出动画
+        const int AW_VER_POSITIVE = 0x00000004; // 自上而下
+        const int AW_VER_NEGATIVE = 0x00000008; // 自下而上
+
+
         private void btnPageClose_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this)?.Close();
+            var window = Window.GetWindow(this);
+            var hwnd = new WindowInteropHelper(window).Handle;
+
+            AnimateWindow(hwnd, 200, AW_SLIDE | AW_HIDE | AW_VER_POSITIVE); // 向下滑动隐藏
+            window.Close();
         }
 
         private void btnPageRestore_Click(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
+            var hwnd = new WindowInteropHelper(window).Handle;
+
             if (window != null)
-                window.WindowState = window.WindowState == WindowState.Maximized
-                    ? WindowState.Normal
-                    : WindowState.Maximized;
+            {
+                if (window.WindowState == WindowState.Maximized)
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+                else
+                {
+                    AnimateWindow(hwnd, 200, AW_BLEND); // 添加淡入动画
+                    window.WindowState = WindowState.Maximized;
+                }
+            }
         }
+
 
         private void btnPageMinimize_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).WindowState = WindowState.Minimized;
+            var window = Window.GetWindow(this);
+            var hwnd = new WindowInteropHelper(window).Handle;
+
+            AnimateWindow(hwnd, 200, AW_BLEND | AW_HIDE); // 淡出动画
+            window.WindowState = WindowState.Minimized;
         }
+
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {

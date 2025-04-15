@@ -84,8 +84,8 @@ namespace FrpcUI.Pages
                 string targetFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Frpc");
 
                 // 生成文件名
-                //string fileName = $"frpc_config_{nodeValue}.ini";
-                string fileName = $"frpc.ini";
+                string fileName = $"frpc_config_{nodeValue}.ini";
+                //string fileName = $"frpc.ini";
                 string fullPath = Path.Combine(targetFolder, fileName);
 
                 // 写入文件
