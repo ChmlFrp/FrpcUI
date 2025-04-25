@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace FrpcUI.Pages
         private static readonly Geometry StopIcon = Geometry.Parse("M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z");
 
         public LogingModelViewModel ViewModel { get; }
-        private readonly ConcurrentDictionary<string, (Process Process, CancellationTokenSource Cts)> _frpcProcesses = new();
+        private readonly ConcurrentDictionary<string, (Process Process, CancellationTokenSource Cts, StringBuilder OutputBuffer)> _frpcProcesses = new();
         private bool _isFrpcRunning;
         private CancellationTokenSource _outputReadCancellationTokenSource;
 
@@ -131,10 +132,19 @@ namespace FrpcUI.Pages
                     (_frpcProcesses.ContainsKey(ViewModel.PreviousIniFile), cmdOutput.Text);
             }
 
+            // 清空当前输出
+            cmdOutput.Clear();
+
             // 恢复或初始化新选择的配置文件状态
-            if (_iniFileStates.TryGetValue(iniFileName, out var state))
+            if (_frpcProcesses.TryGetValue(iniFileName, out var processInfo))
             {
-                // 恢复之前的状态
+                // 恢复运行状态和输出
+                UpdateButtonContent(EditButton, "停止", StopIcon, Colors.Red);
+                cmdOutput.Text = processInfo.OutputBuffer.ToString();
+            }
+            else if (_iniFileStates.TryGetValue(iniFileName, out var state))
+            {
+                // 恢复之前保存的状态
                 UpdateButtonContent(EditButton, state.IsRunning ? "停止" : "运行",
                     state.IsRunning ? StopIcon : PlayIcon,
                     state.IsRunning ? Colors.Red : PrimaryColor);
@@ -191,18 +201,18 @@ namespace FrpcUI.Pages
 
                 if (process.Start())
                 {
-                    _frpcProcesses[iniFileName] = (process, cts);
-                    _ = ReadOutputAsync(iniFileName, process.StandardOutput.BaseStream, cts.Token);
+                    var outputBuffer = new StringBuilder();
+                    _frpcProcesses[iniFileName] = (process, cts, outputBuffer);
+                    _ = ReadOutputAsync(iniFileName, process.StandardOutput.BaseStream, cts.Token, outputBuffer);
                     return true;
                 }
-
-                return false;
             }
             catch (Exception ex)
             {
                 ShowMessageBox($"启动FRPC失败: {ex.Message}");
-                return false;
+                
             }
+            return false;
         }
 
         // 异步停止FRPC进程
@@ -236,7 +246,7 @@ namespace FrpcUI.Pages
         }
 
         // 异步读取FRPC进程输出
-        private async Task ReadOutputAsync(string iniFileName, Stream stream, CancellationToken cancellationToken)
+        private async Task ReadOutputAsync(string iniFileName, Stream stream, CancellationToken cancellationToken, StringBuilder outputBuffer)
         {
             try
             {
@@ -245,12 +255,17 @@ namespace FrpcUI.Pages
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    // 修改为使用正确的 ReadAsync 重载
                     var bytesRead = await reader.ReadAsync(buffer, cancellationToken);
                     if (bytesRead == 0) break;
 
                     var text = new string(buffer, 0, bytesRead);
-                    AppendToTextBox($"[{iniFileName}] {text}");
+                    outputBuffer.Append(text);
+
+                    // 只有当这是当前选中的配置文件时才更新UI
+                    if (ViewModel.SelectedIniFile == iniFileName)
+                    {
+                        AppendToTextBox(text);
+                    }
                 }
             }
             catch (OperationCanceledException)
