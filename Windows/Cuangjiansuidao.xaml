@@ -92,21 +92,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="节点选择" VerticalAlignment="Top" Margin="0,0,10,0"/>
+            <TextBlock Grid.Column="0" Text="节点选择" VerticalAlignment="Center" Margin="0,0,10,0"/>
             <Border Grid.Column="1" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
                 <ComboBox SelectedIndex="0"
                   VerticalAlignment="Center"
                   PreviewMouseDown="ComboBox_PreviewMouseDown"
-                  Text="{Binding SelectedNode, Mode=TwoWay}"
+                  Text="{Binding SelectedNode, Mode=OneWay}"
                   IsEditable="True"
                   IsReadOnly="True"
                   BorderThickness="0"
-                  Background="Transparent"/>
+                  Background="Transparent" Height="25.24"/>
             </Border>
 
             <TextBlock Grid.Column="2" Text="端口类型" VerticalAlignment="Center" Margin="20,0,10,0"/>
             <Border Grid.Column="3" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
-                <ComboBox x:Name="PortType" SelectedIndex="0" VerticalAlignment="Center" SelectionChanged="PortType_SelectionChanged" BorderThickness="0" Background="Transparent">
+                <ComboBox x:Name="PortType" SelectedIndex="0" VerticalAlignment="Center" SelectionChanged="PortType_SelectionChanged" BorderThickness="0" Background="Transparent" Height="25.24">
                     <ComboBoxItem>TCP</ComboBoxItem>
                     <ComboBoxItem>UDP</ComboBoxItem>
                     <ComboBoxItem>HTTP</ComboBoxItem>

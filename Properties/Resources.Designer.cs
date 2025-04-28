@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace UIKitTutorials.Properties
+namespace FrpcUI.Properties
 {
     /// <summary>
     ///   Clase de recurso fuertemente tipado para buscar cadenas traducidas, etc.
@@ -43,7 +43,7 @@ namespace UIKitTutorials.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UIKitTutorials.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FrpcUI.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

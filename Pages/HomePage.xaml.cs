@@ -21,17 +21,15 @@ namespace FrpcUI.Pages
         private static readonly Geometry PlayIcon = Geometry.Parse("M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z");
         private static readonly Geometry StopIcon = Geometry.Parse("M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z");
 
-        public LogingModelViewModel ViewModel { get; }
+        public HomeViewModel ViewModel { get; }
         private readonly ConcurrentDictionary<string, (Process Process, CancellationTokenSource Cts, StringBuilder OutputBuffer)> _frpcProcesses = new();
-        private bool _isFrpcRunning;
-        private CancellationTokenSource _outputReadCancellationTokenSource;
 
         private readonly ConcurrentDictionary<string, (bool IsRunning, string OutputText)> _iniFileStates = new();
 
         public HomePage()
         {
             InitializeComponent();
-            ViewModel = new LogingModelViewModel();
+            ViewModel = new HomeViewModel();
             DataContext = ViewModel;
             Application.Current.Exit += OnApplicationExit;
 
@@ -110,7 +108,6 @@ namespace FrpcUI.Pages
 
                 if (started)
                 {
-                    _isFrpcRunning = true;
                     UpdateButtonContent(button, "停止", StopIcon, Colors.Red);
                     _iniFileStates[iniFileName] = (true, cmdOutput.Text);
                 }
@@ -195,7 +192,6 @@ namespace FrpcUI.Pages
                     Dispatcher.Invoke(() =>
                     {
                         _frpcProcesses.TryRemove(iniFileName, out _);
-                        if (_frpcProcesses.IsEmpty) _isFrpcRunning = false;
                     });
                 };
 
@@ -210,7 +206,7 @@ namespace FrpcUI.Pages
             catch (Exception ex)
             {
                 ShowMessageBox($"启动FRPC失败: {ex.Message}");
-                
+
             }
             return false;
         }
@@ -239,7 +235,6 @@ namespace FrpcUI.Pages
             finally
             {
                 _frpcProcesses.TryRemove(iniFileName, out _);
-                if (_frpcProcesses.IsEmpty) _isFrpcRunning = false;
                 processInfo.Process?.Dispose();
                 processInfo.Cts?.Dispose();
             }

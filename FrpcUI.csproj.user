@@ -13,6 +13,9 @@
     <Compile Update="Pages\Peizhiwenjian.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\SettingPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Cuangjiansuidao.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

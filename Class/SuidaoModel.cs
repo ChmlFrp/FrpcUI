@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using UIKitTutorials;
 
 namespace FrpcUI.Class
 {
@@ -42,7 +41,7 @@ namespace FrpcUI.Class
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private const string BaseApiUrl = "https://cf-v2.uapis.cn";
-
+        
         private SuidaoModel _selectedNode;
         private SuidaoModel _selectedSuidao;
         private ObservableCollection<SuidaoModel> _uniqueNodeModels;
@@ -166,7 +165,7 @@ namespace FrpcUI.Class
 
             try
             {
-                var response = await _httpClient.PostAsync($"{BaseApiUrl}/api/deletetl.php", new FormUrlEncodedContent(postData));
+                var response = await _httpClient.PostAsync("https://cf-v1.uapis.cn/api/deletetl.php", new FormUrlEncodedContent(postData));
 
                 if (!response.IsSuccessStatusCode)
                 {

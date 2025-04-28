@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using UIKitTutorials;
 
 namespace FrpcUI.Class
 {

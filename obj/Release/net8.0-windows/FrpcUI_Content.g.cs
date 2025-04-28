@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/w8h9p-6i8rs-001.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("w8h9p-6i8rs-001.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("%e5%9b%be%e6%a0%87.ico")]
 
 

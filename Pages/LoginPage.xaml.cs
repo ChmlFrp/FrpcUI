@@ -1,33 +1,26 @@
-﻿using FrpcUI.Class;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using CredentialManagement;
+using FrpcUI.Class;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.IO.IsolatedStorage;
-using System.Net.Http;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Newtonsoft.Json;
 
 
 
-namespace UIKitTutorials.Pages
+namespace FrpcUI.Pages
 {
     /// <summary>
     /// LoginPage.xaml 的交互逻辑
     /// </summary>
     public partial class LoginPage : Page
     {
-        public LogingModelViewModel viewModel = new LogingModelViewModel();
-        private readonly HttpClient httpClient;
-
         public LoginPage()
         {
             InitializeComponent();
-            httpClient = new HttpClient();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -72,15 +65,47 @@ namespace UIKitTutorials.Pages
             }
         }
 
-        private async void SaveLoginState(LoginModel login)
+        private void SaveLoginState(LoginModel login)
         {
-            IsolatedStorageFile isoFile = IsolatedStorageFile.GetUserStoreForApplication();
-
-            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("loginState.json", FileMode.Create, isoFile))
-            using (StreamWriter writer = new StreamWriter(stream))
+            try
             {
-                string json = JsonConvert.SerializeObject(login);
-                await writer.WriteAsync(json);
+                // 使用 CredentialManager 存储Token，账号密码等敏感信息不存储
+                using (var cred = new Credential())
+                {
+                    cred.Target = "FrpcUI"; // 唯一标识
+                    cred.Password = login.Token; // 可自动加密存储
+                    cred.Type = CredentialType.Generic; // 通用凭据类型
+                    cred.PersistanceType = PersistanceType.LocalComputer; // 存储方式（本地计算机）
+
+                    // 保存凭据到 Windows 凭据管理器
+                    if (!cred.Save())
+                    {
+                        MessageBox.Show("保存凭据失败，请检查权限或重试。");
+                    }
+                    // 保存最后更新时间到隔离存储
+                    var lastUpdateTime = DateTime.Now;
+                    using var isoFile = IsolatedStorageFile.GetUserStoreForApplication();
+                    using var stream = new IsolatedStorageFileStream("loginState.json", FileMode.Create, isoFile);
+                    using (StreamWriter writer = new StreamWriter(stream))
+                    {
+                        var loginWithTime = new
+                        {
+                            login.Msg,
+                            login.UserImg,
+                            login.RealName,
+                            login.Mail,
+                            LastUpdateTime = lastUpdateTime.ToString("O")
+                        };
+                        string json = JsonConvert.SerializeObject(loginWithTime);
+                        writer.Write(json);
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"保存凭据时出错: {ex.Message}");
             }
         }
 
@@ -96,94 +121,24 @@ namespace UIKitTutorials.Pages
         {
             string userName = textUser.Text;
             string passWord = textPassword.Password;
-            string urlAPI = "https://cf-v2.uapis.cn/login";
 
-            var postData = new Dictionary<string, string>
+            var loginResult = await LoginModel.LoginAsync(userName, passWord);
+
+            if (loginResult.Success)
             {
-                { "username", userName },
-                { "password", passWord }
-            };
 
-            var content = new FormUrlEncodedContent(postData);
+                SaveLoginState(loginResult.LoginModel); // 存储登录状态
 
-            try
-            {
-                using (HttpResponseMessage response = await httpClient.PostAsync(urlAPI, content))
+                Window currentWindow = Window.GetWindow(this);
+                if (currentWindow != null)
                 {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseBody = await response.Content.ReadAsStringAsync();
-                        JObject keyValuePairs = JObject.Parse(responseBody);
-                        string state = keyValuePairs["state"].ToString();
-
-                        switch (state.ToLower())
-                        {
-                            case "success":
-                                if (keyValuePairs["data"] != null)
-                                {
-                                    JObject data = keyValuePairs["data"] as JObject;
-                                    // 检查data是否为null
-                                    if (data != null)
-                                    {
-                                        LoginModel login = new LoginModel
-                                        {
-                                            Msg = keyValuePairs["msg"].ToString(),
-                                            Code = keyValuePairs["code"].ToObject<int>(),
-                                            RealName = data["username"]?.ToString() ?? string.Empty,
-                                            Token = data["usertoken"]?.ToString() ?? string.Empty,
-                                            QianDao = bool.TryParse(data["qiandao"]?.ToString(), out bool qianDaoResult) ? qianDaoResult : false,
-                                            UserGroup = data["usergroup"]?.ToString() ?? string.Empty,
-                                            Integral = data["integral"]?.ToObject<int>() ?? 0,
-                                            AbroadBandwidth = data["abroadbandwidth"]?.ToObject<int>() ?? 0,
-                                            Bandwidth = data["bandwidth"]?.ToObject<int>() ?? 0,
-                                            QQ = data["qq"]?.ToObject<long>() ?? 0,
-                                            Tunnel = data["tunnel"]?.ToObject<int>() ?? 0,
-                                            UsedTunnel = data["usedtunnel"]?.ToObject<int>() ?? 0,
-                                            Mail = data["email"]?.ToString() ?? string.Empty,
-                                            UserID = data["userid"]?.ToObject<int>() ?? 0,
-                                            UserImg = data["userimg"]?.ToString() ?? string.Empty,
-                                            IdentityID = data["identityID"]?.ToString() ?? string.Empty,
-                                            DateOut = data["regtime"] == null ? (DateTime?)null : DateTime.Parse(data["regtime"].ToString())
-                                        };
-                                        viewModel.LoginModels.Add(login);
-                                        SaveLoginState(login); // 存储登录状态
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("返回的数据格式不正确，缺少'data'字段");
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("返回的数据格式不正确，缺少'data'字段");
-                                }
-                                Window currentWindow = Window.GetWindow(this);
-                                if (currentWindow != null)
-                                {
-                                    new MainWindow().Show();
-                                    currentWindow.Close();
-                                }
-                                break;
-
-                            case "fail1":
-                            case "error":
-                            case "fail":
-                                MessageBox.Show("登录失败");
-                                break;
-                            default:
-                                MessageBox.Show("未知的状态码：" + state);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("发送失败，状态码：" + response.StatusCode);
-                    }
+                    new MainWindow().Show();
+                    currentWindow.Close();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("请求发生错误: " + ex.Message);
+                MessageBox.Show(loginResult.ErrorMessage);
             }
         }
 
@@ -204,7 +159,7 @@ namespace UIKitTutorials.Pages
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://preview.panel.chmlfrp.cn/sign",
+                FileName = "https://panel.chmlfrp.cn/register",
                 UseShellExecute = true
             });
         }

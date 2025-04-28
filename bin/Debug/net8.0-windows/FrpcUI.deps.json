@@ -9,6 +9,7 @@
       "FrpcUI/1.0.0": {
         "dependencies": {
           "CommunityToolkit.Mvvm": "8.4.0",
+          "CredentialManagement": "1.0.2",
           "Newtonsoft.Json": "13.0.3",
           "System.Data.DataSetExtensions": "4.6.0-preview3.19128.7",
           "WpfAnimatedGif": "2.0.2"
@@ -22,6 +23,14 @@
           "lib/net8.0/CommunityToolkit.Mvvm.dll": {
             "assemblyVersion": "8.4.0.0",
             "fileVersion": "8.4.0.1"
+          }
+        }
+      },
+      "CredentialManagement/1.0.2": {
+        "runtime": {
+          "lib/net35/CredentialManagement.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
           }
         }
       },
@@ -56,6 +65,13 @@
       "sha512": "sha512-tqVU8yc/ADO9oiTRyTnwhFN68hCwvkliMierptWOudIAvWY1mWCh5VFh+guwHJmpMwfg0J0rY+yyd5Oy7ty9Uw==",
       "path": "communitytoolkit.mvvm/8.4.0",
       "hashPath": "communitytoolkit.mvvm.8.4.0.nupkg.sha512"
+    },
+    "CredentialManagement/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VkP04/jFXaxT3TkcRhzETYtOrznQxRmQ2J1XJdbXz47Bir7hIzPR7mFZk4GJQ4An4gozW+vonpf+iqTHomAkQw==",
+      "path": "credentialmanagement/1.0.2",
+      "hashPath": "credentialmanagement.1.0.2.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",

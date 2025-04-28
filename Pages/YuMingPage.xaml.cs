@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UIKitTutorials.Pages
+namespace FrpcUI.Pages
 {
     /// <summary>
     /// Lógica de interacción para PaymentPage.xaml

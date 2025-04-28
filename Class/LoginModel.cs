@@ -1,42 +1,18 @@
-﻿using FrpcUI.Services;
+﻿using FrpcUI.Class;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
-using UIKitTutorials;
+
 
 namespace FrpcUI.Class
 {
     public class LoginModel
     {
-        public int ID { get; set; }
         public string Name { get; set; }
-        public string LocalIP { get; set; }
-        public string Type { get; set; }
-        public int NPort { get; set; }
-        public string DORP { get; set; } // 这个字段名有些不明确，你可以根据实际需求调整
-        public string Node { get; set; }
-        public bool State { get; set; }
         public int UserID { get; set; }
-        public bool UseEncryption { get; set; }
-        public bool UseCompression { get; set; }
-        public string AP { get; set; } // 这个字段名有些不明确，你可以根据实际需求调整
-        //public DateTime Uptime { get; set; }
-        public string ClientVersion { get; set; }
-        public long TodayTrafficIn { get; set; }
-        public long TodayTrafficOut { get; set; }
-        public int CurConns { get; set; }
-        public string NodeState { get; set; } // 在线或离线
-        public string ConnectUrl { get; set; }
-        public string Region { get; set; }
-        public string Address { get; set; }
         public string tunnelCount { get; set; }
-        // 新增属性
         public string Msg { get; set; }
         public int Code { get; set; }
         public string RealName { get; set; }
@@ -53,144 +29,108 @@ namespace FrpcUI.Class
         public string UserImg { get; set; }
         public string IdentityID { get; set; }
         public DateTime? DateOut { get; set; }
-    }
 
-    public class LogingModelViewModel : INotifyPropertyChanged
-    {
-        private readonly ApiService _apiService;
 
-        public ObservableCollection<LoginModel> LoginModels { get; } = new ObservableCollection<LoginModel>();
-
-        private readonly string _folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Frpc");
-        private FileSystemWatcher _fileSystemWatcher;
-
-        public ObservableCollection<string> IniFiles { get; } = new ObservableCollection<string>();
-
-        public string PreviousIniFile { get; set; }
-
-        public LogingModelViewModel()
+        // 添加静态方法处理登录请求
+        public static async Task<LoginResult> LoginAsync(string username, string password)
         {
-            LoadIniFiles();
-            SetupFileSystemWatcher();
-            _apiService = new ApiService(new HttpClient());
-        }
+            const string urlAPI = "https://cf-v2.uapis.cn/login";
 
-        private string _selectedIniFile;
-        public string SelectedIniFile
-        {
-            get => _selectedIniFile;
-            set
+            var postData = new Dictionary<string, string>
             {
-                if (_selectedIniFile != value)
-                {
-                    _selectedIniFile = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
-        public void LoadIniFiles()
-        {
-            if (Directory.Exists(_folderPath))
-            {
-                var files = Directory.GetFiles(_folderPath, "*.ini").Select(Path.GetFileName).ToList();
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    IniFiles.Clear();
-                    foreach (var file in files)
-                    {
-                        IniFiles.Add(file);
-                    }
-                });
-            }
-        }
-
-        private void SetupFileSystemWatcher()
-        {
-            _fileSystemWatcher = new FileSystemWatcher(_folderPath)
-            {
-                NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite,
-                Filter = "*.ini",
-                EnableRaisingEvents = true
+                { "username", username },
+                { "password", password }
             };
 
-            _fileSystemWatcher.Created += (s, e) => LoadIniFiles();
-            _fileSystemWatcher.Deleted += (s, e) => LoadIniFiles();
-            _fileSystemWatcher.Renamed += (s, e) => LoadIniFiles();
-        }
-
-        public void Cleanup()
-        {
-            _fileSystemWatcher?.Dispose();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public async Task LoadUserDataAsync()
-        {
-            var savedLogin = ((App)Application.Current).LoadLoginState();
-            if (savedLogin == null || string.IsNullOrEmpty(savedLogin.Token))
-                return;
-
-            var response = await _apiService.GetUserInfoAsync(savedLogin.Token);
-
-            if (response.Success)
+            using (var httpClient = new HttpClient())
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                try
                 {
-                    LoginModels.Add(new LoginModel
+                    var content = new FormUrlEncodedContent(postData);
+                    using (HttpResponseMessage response = await httpClient.PostAsync(urlAPI, content))
                     {
-                        Msg = response.UserInfo.Msg,
-                        Code = response.UserInfo.Code,
-                        RealName = response.UserInfo.RealName,
-                        tunnelCount = response.UserInfo.TunnelCount,
-                        Name = response.UserInfo.Name,
-                        Token = response.UserInfo.Token,
-                        QianDao = response.UserInfo.QianDao,
-                        UserGroup = response.UserInfo.UserGroup,
-                        Integral = response.UserInfo.Integral,
-                        AbroadBandwidth = response.UserInfo.AbroadBandwidth,
-                        Bandwidth = response.UserInfo.Bandwidth,
-                        QQ = response.UserInfo.QQ,
-                        Tunnel = response.UserInfo.Tunnel,
-                        UsedTunnel = response.UserInfo.UsedTunnel,
-                        Mail = response.UserInfo.Mail,
-                        UserID = response.UserInfo.UserID,
-                        UserImg = response.UserInfo.UserImg,
-                        IdentityID = response.UserInfo.IdentityID,
-                        DateOut = response.UserInfo.DateOut
-                    });
-                });
-            }
-            else if (response.ShouldLogout)
-            {
-                HandleLogout();
-            }
-            else
-            {
-                MessageBox.Show(response.ErrorMessage);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string responseBody = await response.Content.ReadAsStringAsync();
+                            JObject keyValuePairs = JObject.Parse(responseBody);
+                            string state = keyValuePairs["state"].ToString();
+
+                            if (state.ToLower() == "success" && keyValuePairs["data"] != null)
+                            {
+                                JObject data = keyValuePairs["data"] as JObject;
+                                if (data != null)
+                                {
+                                    return new LoginResult
+                                    {
+                                        Success = true,
+                                        LoginModel = new LoginModel
+                                        {
+                                            Msg = keyValuePairs["msg"].ToString(),
+                                            Code = keyValuePairs["code"].ToObject<int>(),
+                                            RealName = data["username"]?.ToString() ?? string.Empty,
+                                            Token = data["usertoken"]?.ToString() ?? string.Empty,
+                                            QianDao = bool.TryParse(data["qiandao"]?.ToString(), out bool qianDaoResult) ? qianDaoResult : false,
+                                            UserGroup = data["usergroup"]?.ToString() ?? string.Empty,
+                                            Integral = data["integral"]?.ToObject<int>() ?? 0,
+                                            AbroadBandwidth = data["abroadbandwidth"]?.ToObject<int>() ?? 0,
+                                            Bandwidth = data["bandwidth"]?.ToObject<int>() ?? 0,
+                                            QQ = data["qq"]?.ToObject<long>() ?? 0,
+                                            Tunnel = data["tunnel"]?.ToObject<int>() ?? 0,
+                                            UsedTunnel = data["usedtunnel"]?.ToObject<int>() ?? 0,
+                                            Mail = data["email"]?.ToString() ?? string.Empty,
+                                            UserID = data["userid"]?.ToObject<int>() ?? 0,
+                                            UserImg = data["userimg"]?.ToString() ?? string.Empty,
+                                            IdentityID = data["identityID"]?.ToString() ?? string.Empty,
+                                            DateOut = data["regtime"] == null ? (DateTime?)null : DateTime.Parse(data["regtime"].ToString())
+                                        }
+                                    };
+                                }
+                            }
+
+                            return new LoginResult
+                            {
+                                Success = false,
+                                ErrorMessage = GetErrorMessage(state)
+                            };
+                        }
+
+                        return new LoginResult
+                        {
+                            Success = false,
+                            ErrorMessage = $"发送失败，状态码：{response.StatusCode}"
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new LoginResult
+                    {
+                        Success = false,
+                        ErrorMessage = $"请求发生错误: {ex.Message}"
+                    };
+                }
             }
         }
 
-        private void HandleLogout()
+        private static string GetErrorMessage(string state)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            switch (state.ToLower())
             {
-                var currentWindow = Application.Current.MainWindow;
-                if (currentWindow != null)
-                {
-                    new MainWindow().Show();
-                    currentWindow.Close();
-                }
-            });
+                case "fail1":
+                case "error":
+                case "fail":
+                    return "登录失败";
+                default:
+                    return $"未知的状态码：{state}";
+            }
         }
     }
-
-
 }
+
+public class LoginResult
+{
+    public bool Success { get; set; }
+    public LoginModel LoginModel { get; set; }
+    public string ErrorMessage { get; set; }
+}
+

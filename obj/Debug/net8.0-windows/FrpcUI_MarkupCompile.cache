@@ -1,5 +1,5 @@
 ﻿FrpcUI
-
+1.0.0
 
 winexe
 C#
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\FTP\FrpcUI\FrpcUI\App.xaml
-131802693007
-2-1360005496
-25-758934608
-201-698446297
-Assets\Icons\Icons.xaml;MainWindow.xaml;Pages\GuangYuPage.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;Pages\Peizhiwenjian.xaml;Pages\SuiDaoPage.xaml;Pages\YuMingPage.xaml;Styles\MainStyle.xaml;Themes\LightTheme.xaml;Windows\Cuangjiansuidao.xaml;Windows\Tianjiasuidao.xaml;Windows\Tianjiasuidao2.xaml;
+14429072232
+1636808229
+27-1047442794
+202-1039754278
+Assets\Icons\Icons.xaml;MainWindow.xaml;Pages\GuangYuPage.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;Pages\Peizhiwenjian.xaml;Pages\SettingPage.xaml;Pages\SuiDaoPage.xaml;Pages\YuMingPage.xaml;Styles\MainStyle.xaml;Themes\LightTheme.xaml;Windows\Cuangjiansuidao.xaml;Windows\Tianjiasuidao.xaml;Windows\Tianjiasuidao2.xaml;
 
 False
 

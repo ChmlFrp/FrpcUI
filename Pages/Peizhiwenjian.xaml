@@ -9,7 +9,7 @@
 
     <Grid Background="#F4F5F7" Margin="20">
         <StackPanel HorizontalAlignment="Center" Width="910">
-            <TextBlock Text="隧道列表" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="配置文件" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
 
             <!-- 顶部配置选择部分 -->
             <DockPanel Margin="10" LastChildFill="True">
@@ -64,8 +64,8 @@
                                           Margin="3,0"
                                           ToolTip="为空代表选中当前节点下的全部隧道"
                                           ToolTipService.InitialShowDelay="200"
-                                           ToolTipService.BetweenShowDelay="0"
-                                           ToolTipService.ShowDuration="60000"/>
+                                          ToolTipService.BetweenShowDelay="0"
+                                          ToolTipService.ShowDuration="60000"/>
 
                                 <!-- ❌ 按钮（点击清除选择） -->
                                 <Button Grid.Column="1"
@@ -111,7 +111,7 @@
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" 
                                         CornerRadius="10" 
-                                        Background="White" Width="27"
+                                        Background="Transparent" Width="27"
                                         VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <Path Data="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z"  

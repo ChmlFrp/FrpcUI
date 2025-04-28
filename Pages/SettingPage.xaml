@@ -1,0 +1,93 @@
+﻿<Page x:Class="FrpcUI.Pages.SettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FrpcUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Setting">
+
+    <Page.Resources>
+        <Style x:Key="AnimatedRadioButton" TargetType="ToggleButton">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="Transparent" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Grid Width="22" Height="22" Margin="0,0,10,0">
+                                    <Ellipse x:Name="OuterCircle" Stroke="#CCCCCC" StrokeThickness="2" Fill="Transparent"/>
+                                    <Ellipse x:Name="InnerCircle" Width="8" Height="8" Fill="#409EFF" Opacity="0" RenderTransformOrigin="0.5,0.5">
+                                        <Ellipse.RenderTransform>
+                                            <ScaleTransform ScaleX="0" ScaleY="0" />
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                </Grid>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <!-- 鼠标悬浮时文字变蓝 -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#409EFF"/>
+                            </Trigger>
+
+                            <!-- 选中时小圆点动画出现 -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                             To="1" Duration="0:0:0.2" 
+                                             EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                             To="1" Duration="0:0:0.2" 
+                                             EasingFunction="{StaticResource EaseOut}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                             To="0" Duration="0:0:0.2" 
+                                             EasingFunction="{StaticResource EaseOut}"/>
+                                            <DoubleAnimation Storyboard.TargetName="InnerCircle"
+                                             Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                             To="0" Duration="0:0:0.2" 
+                                             EasingFunction="{StaticResource EaseOut}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Background="#F5F5F5">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ToggleButton Content="最小化到任务托盘" Style="{StaticResource AnimatedRadioButton}" 
+                          Checked="OnMinimizeChecked" Unchecked="OnMinimizeUnchecked"/>
+        </StackPanel>
+    </Grid>
+
+</Page>

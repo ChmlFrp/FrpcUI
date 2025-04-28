@@ -54,6 +54,17 @@
               "target": "Package",
               "version": "[8.4.0, )"
             },
+            "CredentialManagement": {
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "noWarn": [
+                "NU1701"
+              ]
+            },
+            "Microsoft.Windows.Compatibility": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -82,7 +93,7 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App.WPF": {
+            "Microsoft.WindowsDesktop.App": {
               "privateAssets": "none"
             }
           },

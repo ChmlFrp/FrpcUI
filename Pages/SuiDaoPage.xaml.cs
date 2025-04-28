@@ -1,11 +1,10 @@
-﻿using FrpcUI;
-using FrpcUI.Class;
+﻿using FrpcUI.Class;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UIKitTutorials.Pages
+namespace FrpcUI.Pages
 {
     /// <summary>
     /// Lógica de interacción para NotesPage.xaml
@@ -21,7 +20,7 @@ namespace UIKitTutorials.Pages
 
             httpClient = new HttpClient();
             InitializeComponent();
-            this.DataContext = viewModel; // 修改为使用正确的ViewModel类型
+            this.DataContext = viewModel;
 
             // 调用并等待 LoadDataAsync 方法执行完成
             _ = viewModel.LoadDataAsync();

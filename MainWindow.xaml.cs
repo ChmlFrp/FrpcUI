@@ -7,12 +7,15 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using UIKitTutorials.Pages;
+using System.Windows.Forms;
+using System.Drawing;
 
-namespace UIKitTutorials
+namespace FrpcUI
 {
     public partial class MainWindow : Window
     {
+        private NotifyIcon _notifyIcon;
+
         public class UserProfile
         {
             public string Name { get; set; }
@@ -26,13 +29,15 @@ namespace UIKitTutorials
         private HomePage _homePage;
         private SuiDaoPage _suiDaoPage;
         private Peizhiwenjian _peizhiwenjianPage;
+        private GuangyuPage _guangyuPage;
+        private SettingPage _settingsPage;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            CreateNotifyIcon();
             // 初始化用户数据
-            var savedLogin = ((App)Application.Current).LoadLoginState();
+            var savedLogin = ((App)System.Windows.Application.Current).LoadLoginState();
             UserProfiles = new ObservableCollection<UserProfile>
             {
                 new UserProfile { Name = savedLogin.RealName, Mail = savedLogin.Mail, UserImg = savedLogin.UserImg }
@@ -43,6 +48,40 @@ namespace UIKitTutorials
             _homePage = new HomePage();
             PagesNavigation.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             PagesNavigation.Navigate(_homePage);
+        }
+
+        private void CreateNotifyIcon()
+        {
+            _notifyIcon = new NotifyIcon();
+            _notifyIcon.Icon = new Icon("/图标.ico"); // 设置任务栏图标
+            _notifyIcon.Visible = true;
+
+            // 创建右键菜单
+            var contextMenu = new ContextMenuStrip();
+            contextMenu.Items.Add("打开", null, Open_Click);
+            contextMenu.Items.Add("退出", null, Exit_Click);
+
+            // 将右键菜单绑定到 NotifyIcon
+            _notifyIcon.ContextMenuStrip = contextMenu;
+        }
+
+        private void Open_Click(object sender, EventArgs e)
+        {
+            this.Show();  // 显示窗口
+            this.WindowState = WindowState.Normal;
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            _notifyIcon.Dispose();  // 关闭通知图标
+            System.Windows.Application.Current.Shutdown();  // 关闭应用程序
+        }
+
+        // 在窗口关闭时清理 NotifyIcon
+        protected override void OnClosed(EventArgs e)
+        {
+            _notifyIcon.Dispose();
+            base.OnClosed(e);
         }
 
         // ========= 页面导航 =========
@@ -71,6 +110,20 @@ namespace UIKitTutorials
         private void YuMing_Click(object sender, RoutedEventArgs e)
         {
             // 添加需要时再处理
+        }
+
+        private void GuanYU_Click(object sender, RoutedEventArgs e)
+        {
+            if (_guangyuPage == null)
+                _guangyuPage = new GuangyuPage();
+            PagesNavigation.Navigate(_guangyuPage);
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            if (_settingsPage == null)
+                _settingsPage = new SettingPage();
+            PagesNavigation.Navigate(_settingsPage);
         }
 
         // ========= 页面动画 =========
