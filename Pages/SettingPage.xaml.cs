@@ -9,24 +9,34 @@ namespace FrpcUI.Pages
     /// </summary>
     public partial class SettingPage : Page
     {
-        // 定义一个事件来通知 MainWindow
-        public event EventHandler MinimizeToTrayChanged;
-
         public SettingPage()
         {
             InitializeComponent();
         }
+        public event EventHandler MinimizeToTrayChanged;
+        private bool _isMinimizeToTray;
 
-        // 选中时触发
-        private void OnMinimizeChecked(object sender, RoutedEventArgs e)
+        public bool IsMinimizeToTray
         {
-            MinimizeToTrayChanged?.Invoke(this, EventArgs.Empty);
+            get => _isMinimizeToTray;
+            private set
+            {
+                if (_isMinimizeToTray != value)
+                {
+                    _isMinimizeToTray = value;
+                    MinimizeToTrayChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
 
-        // 取消选中时触发
+        private void OnMinimizeChecked(object sender, RoutedEventArgs e)
+        {
+            IsMinimizeToTray = true;
+        }
+
         private void OnMinimizeUnchecked(object sender, RoutedEventArgs e)
         {
-            MinimizeToTrayChanged?.Invoke(this, EventArgs.Empty);
+            IsMinimizeToTray = false;
         }
 
     }

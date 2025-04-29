@@ -3,227 +3,227 @@ using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Forms;
-using System.Drawing;
 
 namespace FrpcUI
 {
     public partial class MainWindow : Window
     {
-        private NotifyIcon _notifyIcon;
+        private readonly NotifyIcon _notifyIcon;
+        private bool _minimizeToTray;
 
-        public class UserProfile
-        {
-            public string Name { get; set; }
-            public string Mail { get; set; }
-            public string UserImg { get; set; }
-        }
+        public ObservableCollection<UserProfile> UserProfiles { get; }
 
-        public ObservableCollection<UserProfile> UserProfiles { get; set; }
-
-        // 页面缓存（避免状态丢失）
-        private HomePage _homePage;
+        private readonly HomePage _homePage = new();
         private SuiDaoPage _suiDaoPage;
         private Peizhiwenjian _peizhiwenjianPage;
         private GuangyuPage _guangyuPage;
         private SettingPage _settingsPage;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            CreateNotifyIcon();
-            // 初始化用户数据
-            var savedLogin = ((App)System.Windows.Application.Current).LoadLoginState();
-            UserProfiles = new ObservableCollection<UserProfile>
-            {
-                new UserProfile { Name = savedLogin.RealName, Mail = savedLogin.Mail, UserImg = savedLogin.UserImg }
-            };
-            this.DataContext = this;
+        private const int AnimationDurationMs = 200;
 
-            // 初始化页面并导航
-            _homePage = new HomePage();
-            PagesNavigation.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            PagesNavigation.Navigate(_homePage);
-        }
-
-        private void CreateNotifyIcon()
-        {
-            _notifyIcon = new NotifyIcon();
-            _notifyIcon.Icon = new Icon("/图标.ico"); // 设置任务栏图标
-            _notifyIcon.Visible = true;
-
-            // 创建右键菜单
-            var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add("打开", null, Open_Click);
-            contextMenu.Items.Add("退出", null, Exit_Click);
-
-            // 将右键菜单绑定到 NotifyIcon
-            _notifyIcon.ContextMenuStrip = contextMenu;
-        }
-
-        private void Open_Click(object sender, EventArgs e)
-        {
-            this.Show();  // 显示窗口
-            this.WindowState = WindowState.Normal;
-        }
-
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            _notifyIcon.Dispose();  // 关闭通知图标
-            System.Windows.Application.Current.Shutdown();  // 关闭应用程序
-        }
-
-        // 在窗口关闭时清理 NotifyIcon
-        protected override void OnClosed(EventArgs e)
-        {
-            _notifyIcon.Dispose();
-            base.OnClosed(e);
-        }
-
-        // ========= 页面导航 =========
-
-        private void rdHome_Click(object sender, RoutedEventArgs e)
-        {
-            if (_homePage == null)
-                _homePage = new HomePage();
-            PagesNavigation.Navigate(_homePage);
-        }
-
-        private void SuiDaoLieBiao_Click(object sender, RoutedEventArgs e)
-        {
-            if (_suiDaoPage == null)
-                _suiDaoPage = new SuiDaoPage();
-            PagesNavigation.Navigate(_suiDaoPage);
-        }
-
-        private void Peizhiwenjian_Click(object sender, RoutedEventArgs e)
-        {
-            if (_peizhiwenjianPage == null)
-                _peizhiwenjianPage = new Peizhiwenjian();
-            PagesNavigation.Navigate(_peizhiwenjianPage);
-        }
-
-        private void YuMing_Click(object sender, RoutedEventArgs e)
-        {
-            // 添加需要时再处理
-        }
-
-        private void GuanYU_Click(object sender, RoutedEventArgs e)
-        {
-            if (_guangyuPage == null)
-                _guangyuPage = new GuangyuPage();
-            PagesNavigation.Navigate(_guangyuPage);
-        }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            if (_settingsPage == null)
-                _settingsPage = new SettingPage();
-            PagesNavigation.Navigate(_settingsPage);
-        }
-
-        // ========= 页面动画 =========
-
-        private void SuiDao_Click(object sender, RoutedEventArgs e)
-        {
-            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
-                return;
-
-            SubButtonsPanel.Visibility = Visibility.Visible;
-            var expandAnimation = new DoubleAnimation
-            {
-                From = 0,
-                To = 100,
-                Duration = TimeSpan.FromMilliseconds(300)
-            };
-            SubButtonsPanel.BeginAnimation(HeightProperty, expandAnimation);
-        }
-
-        private void UnSuiDao_Click(object sender, RoutedEventArgs e)
-        {
-            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true)
-                return;
-
-            var collapseAnimation = new DoubleAnimation
-            {
-                From = SubButtonsPanel.ActualHeight,
-                To = 0,
-                Duration = TimeSpan.FromMilliseconds(300)
-            };
-            collapseAnimation.Completed += (s, _) =>
-            {
-                SubButtonsPanel.Visibility = Visibility.Collapsed;
-            };
-            SubButtonsPanel.BeginAnimation(HeightProperty, collapseAnimation);
-        }
-
-        // ========= 窗口控制 =========
+        #region Win32 API
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AnimateWindow(IntPtr hwnd, int dwTime, int dwFlags);
 
-        // 动画标志
-        const int AW_HIDE = 0x00010000;        // 隐藏窗口
-        const int AW_ACTIVATE = 0x00020000;    // 激活窗口
-        const int AW_SLIDE = 0x00040000;       // 滑动动画
-        const int AW_BLEND = 0x00080000;       // 淡入淡出动画
-        const int AW_VER_POSITIVE = 0x00000004; // 自上而下
-        const int AW_VER_NEGATIVE = 0x00000008; // 自下而上
+        private const int AW_HIDE = 0x00010000;
+        private const int AW_ACTIVATE = 0x00020000;
+        private const int AW_SLIDE = 0x00040000;
+        private const int AW_BLEND = 0x00080000;
+        private const int AW_VER_POSITIVE = 0x00000004;
+        private const int AW_VER_NEGATIVE = 0x00000008;
 
+        #endregion
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            _notifyIcon = CreateTrayIcon();
+            PagesNavigation.Navigated += PagesNavigation_Navigated;
+
+            var savedLogin = ((App)System.Windows.Application.Current).LoadLoginState();
+            UserProfiles = new ObservableCollection<UserProfile>
+            {
+                new UserProfile(savedLogin.RealName, savedLogin.Mail, savedLogin.UserImg)
+            };
+            DataContext = this;
+
+            PagesNavigation.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            PagesNavigation.Navigate(_homePage);
+        }
+
+        #region 页面导航
+
+        private void NavigatePage<T>(ref T pageInstance) where T : Page, new()
+        {
+            pageInstance ??= new T();
+            PagesNavigation.Navigate(pageInstance);
+        }
+
+        private void rdHome_Click(object sender, RoutedEventArgs e) => PagesNavigation.Navigate(_homePage);
+        private void SuiDaoLieBiao_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _suiDaoPage);
+        private void Peizhiwenjian_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _peizhiwenjianPage);
+        private void GuanYU_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _guangyuPage);
+        private void Settings_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _settingsPage);
+
+        private void YuMing_Click(object sender, RoutedEventArgs e)
+        {
+            // Future implementation
+        }
+
+        #endregion
+
+        #region 托盘图标
+
+        private NotifyIcon CreateTrayIcon()
+        {
+            var tray = new NotifyIcon
+            {
+                Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath),
+                Visible = false,
+                Text = "Frpc UI"
+            };
+
+            tray.DoubleClick += (s, e) => RestoreWindow();
+
+            var contextMenu = new ContextMenuStrip();
+            contextMenu.Items.Add("打开主窗口", null, (s, e) => RestoreWindow());
+            contextMenu.Items.Add("退出", null, (s, e) => CloseApplication());
+
+            tray.ContextMenuStrip = contextMenu;
+
+            return tray;
+        }
+
+        private void RestoreWindow()
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            _notifyIcon.Visible = false;
+        }
+
+        private void CloseApplication()
+        {
+            _notifyIcon.Visible = false;
+            Close();
+        }
+
+        #endregion
+
+        #region 窗口事件
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (_minimizeToTray && WindowState == WindowState.Minimized)
+            {
+                _notifyIcon.Visible = true;
+                Hide();
+            }
+            base.OnStateChanged(e);
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            _notifyIcon?.Dispose();
+            base.OnClosing(e);
+        }
+
+        private void PagesNavigation_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is SettingPage settingPage)
+            {
+                if (_settingsPage != null)
+                    _settingsPage.MinimizeToTrayChanged -= SettingPage_MinimizeToTrayChanged;
+
+                _settingsPage = settingPage;
+                _settingsPage.MinimizeToTrayChanged += SettingPage_MinimizeToTrayChanged;
+            }
+        }
+
+        private void SettingPage_MinimizeToTrayChanged(object sender, EventArgs e)
+        {
+            if (_settingsPage != null)
+            {
+                _minimizeToTray = _settingsPage.IsMinimizeToTray;
+            }
+        }
+
+        #endregion
+
+        #region 动画控制
+
+        private void AnimateAndExecute(IntPtr hwnd, int flags, Action action)
+        {
+            AnimateWindow(hwnd, AnimationDurationMs, flags);
+            action();
+        }
 
         private void btnPageClose_Click(object sender, RoutedEventArgs e)
         {
-            var window = Window.GetWindow(this);
-            var hwnd = new WindowInteropHelper(window).Handle;
-
-            AnimateWindow(hwnd, 200, AW_SLIDE | AW_HIDE | AW_VER_POSITIVE); // 向下滑动隐藏
-            window.Close();
+            var hwnd = new WindowInteropHelper(this).Handle;
+            AnimateAndExecute(hwnd, AW_SLIDE | AW_HIDE | AW_VER_POSITIVE, () => Close());
         }
 
         private void btnPageRestore_Click(object sender, RoutedEventArgs e)
         {
-            var window = Window.GetWindow(this);
-            var hwnd = new WindowInteropHelper(window).Handle;
-
-            if (window != null)
+            var hwnd = new WindowInteropHelper(this).Handle;
+            if (WindowState == WindowState.Maximized)
+                WindowState = WindowState.Normal;
+            else
             {
-                if (window.WindowState == WindowState.Maximized)
-                {
-                    window.WindowState = WindowState.Normal;
-                }
-                else
-                {
-                    AnimateWindow(hwnd, 200, AW_BLEND); // 添加淡入动画
-                    window.WindowState = WindowState.Maximized;
-                }
+                AnimateWindow(hwnd, AnimationDurationMs, AW_BLEND);
+                WindowState = WindowState.Maximized;
             }
         }
 
-
         private void btnPageMinimize_Click(object sender, RoutedEventArgs e)
         {
-            var window = Window.GetWindow(this);
-            var hwnd = new WindowInteropHelper(window).Handle;
-
-            AnimateWindow(hwnd, 200, AW_BLEND | AW_HIDE); // 淡出动画
-            window.WindowState = WindowState.Minimized;
+            var hwnd = new WindowInteropHelper(this).Handle;
+            AnimateAndExecute(hwnd, AW_BLEND | AW_HIDE, () => WindowState = WindowState.Minimized);
         }
 
+        #endregion
+
+        #region 辅助功能
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                Window.GetWindow(this)?.DragMove();
+                DragMove();
         }
 
         private void PagesNavigation_MouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
         }
+
+        private void SuiDao_Click(object sender, RoutedEventArgs e)
+        {
+            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true) return;
+
+            SubButtonsPanel.Visibility = Visibility.Visible;
+            SubButtonsPanel.BeginAnimation(HeightProperty, new DoubleAnimation(0, 100, TimeSpan.FromMilliseconds(300)));
+        }
+
+        private void UnSuiDao_Click(object sender, RoutedEventArgs e)
+        {
+            if (rdSub1.IsChecked == true || rdSub2.IsChecked == true) return;
+
+            var collapse = new DoubleAnimation(SubButtonsPanel.ActualHeight, 0, TimeSpan.FromMilliseconds(300));
+            collapse.Completed += (s, _) => SubButtonsPanel.Visibility = Visibility.Collapsed;
+            SubButtonsPanel.BeginAnimation(HeightProperty, collapse);
+        }
+
+        #endregion
     }
+
+    public record UserProfile(string Name, string Mail, string UserImg);
 }

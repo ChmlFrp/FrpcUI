@@ -41,7 +41,7 @@ namespace FrpcUI.Class
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private const string BaseApiUrl = "https://cf-v2.uapis.cn";
-        
+
         private SuidaoModel _selectedNode;
         private SuidaoModel _selectedSuidao;
         private ObservableCollection<SuidaoModel> _uniqueNodeModels;

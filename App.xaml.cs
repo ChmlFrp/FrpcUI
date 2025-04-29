@@ -69,7 +69,7 @@ namespace FrpcUI
             var loginModel = new LoginModel();
             try
             {
-                
+
 
                 // 1. 从凭据管理器读取用户名和密码
                 using (var cred = new Credential())
@@ -163,7 +163,7 @@ namespace FrpcUI
             try
             {
                 // 检查并删除过期登录状态
-                if(CheckIfCredentialExpired()) DeleteLoginState();
+                if (CheckIfCredentialExpired()) DeleteLoginState();
 
                 var savedLogin = LoadLoginState();
 
