@@ -47,20 +47,6 @@ namespace FrpcUI.Pages
             InitializeData();
         }
 
-        public async void Shencheng_Click(object sender, RoutedEventArgs e)
-        {
-            if (nodeComboBox.SelectedItem is SuidaoModel SelectedNode)
-            {
-                string nodeValue = SelectedNode.Node;
-                string nameValue = SelectedNode.Name;
-                PeizhiModel peizhi = new PeizhiModel(nodeValue, nameValue);
-                string configData = await peizhi.LoadDataAsync();
-                configText.Text = configData;
-            }
-        }
-
-
-
         public void Write_Click(object sender, RoutedEventArgs e)
         {
             if (nodeComboBox.SelectedItem is SuidaoModel SelectedNode)

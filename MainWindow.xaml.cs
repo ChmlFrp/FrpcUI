@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 
@@ -26,21 +27,6 @@ namespace FrpcUI
         private SettingPage _settingsPage;
 
         private const int AnimationDurationMs = 200;
-
-        #region Win32 API
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool AnimateWindow(IntPtr hwnd, int dwTime, int dwFlags);
-
-        private const int AW_HIDE = 0x00010000;
-        private const int AW_ACTIVATE = 0x00020000;
-        private const int AW_SLIDE = 0x00040000;
-        private const int AW_BLEND = 0x00080000;
-        private const int AW_VER_POSITIVE = 0x00000004;
-        private const int AW_VER_NEGATIVE = 0x00000008;
-
-        #endregion
 
         public MainWindow()
         {
@@ -160,35 +146,33 @@ namespace FrpcUI
 
         #region 动画控制
 
-        private void AnimateAndExecute(IntPtr hwnd, int flags, Action action)
-        {
-            AnimateWindow(hwnd, AnimationDurationMs, flags);
-            action();
-        }
-
         private void btnPageClose_Click(object sender, RoutedEventArgs e)
         {
-            var hwnd = new WindowInteropHelper(this).Handle;
-            AnimateAndExecute(hwnd, AW_SLIDE | AW_HIDE | AW_VER_POSITIVE, () => Close());
+            var fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(AnimationDurationMs));
+            fadeOut.Completed += (s, _) => Close();
+            this.BeginAnimation(OpacityProperty, fadeOut);
         }
+
 
         private void btnPageRestore_Click(object sender, RoutedEventArgs e)
         {
-            var hwnd = new WindowInteropHelper(this).Handle;
             if (WindowState == WindowState.Maximized)
+            {
                 WindowState = WindowState.Normal;
+            }
             else
             {
-                AnimateWindow(hwnd, AnimationDurationMs, AW_BLEND);
                 WindowState = WindowState.Maximized;
             }
         }
 
+
         private void btnPageMinimize_Click(object sender, RoutedEventArgs e)
         {
-            var hwnd = new WindowInteropHelper(this).Handle;
-            AnimateAndExecute(hwnd, AW_BLEND | AW_HIDE, () => WindowState = WindowState.Minimized);
+            WindowState = WindowState.Minimized;
         }
+
+
 
         #endregion
 

@@ -58,38 +58,6 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-
-                <Button Click="Shuaxing_Click" Margin="180,0,0,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" 
-                    CornerRadius="10" 
-                    Background="Transparent" Width="27"
-                    VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Path Data="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z"  
-                          Fill="Black" 
-                          Stretch="Uniform" 
-                          Width="20" 
-                          Height="20" />
-
-                                </StackPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <!-- 鼠标悬停效果 -->
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Cursor" Value="Hand"/>
-
-                                </Trigger>
-                                <!-- 按下效果 -->
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="BorderBrush" Value="#E0E0E0"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
                 <!-- 右上角按钮 -->
                 <Button x:Name="EditButton" 
                         Width="120" 

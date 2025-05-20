@@ -75,11 +75,6 @@ namespace FrpcUI.Pages
             LoadingGif.Visibility = Visibility.Collapsed;
         }
 
-        public void Shuaxing_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.LoadIniFiles();
-        }
-
         // 运行或停止FRPC点击事件处理
         public async void RunFrpc_Click(object sender, RoutedEventArgs e)
         {
