@@ -128,22 +128,6 @@ namespace FrpcUI.Class
             return false;
         }
 
-        //private void UpdatePeizhiList(JObject responseJson)
-        //{
-        //    PeizhiList.Clear();
-
-        //    // 使用当前实例的Node和Name创建新实例
-        //    var peizhi = new PeizhiModel(this.Node, this.Name)
-        //    {
-        //        Code = responseJson["code"]?.ToObject<long>() ?? 0,
-        //        Data = responseJson["data"]?.ToString() ?? string.Empty,
-        //        Msg = responseJson["msg"]?.ToString() ?? string.Empty,
-        //        State = responseJson["state"]?.ToString() ?? string.Empty
-        //    };
-
-        //    PeizhiList.Add(peizhi);
-        //}
-
         private static void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);

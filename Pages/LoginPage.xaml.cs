@@ -159,7 +159,7 @@ namespace FrpcUI.Pages
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://panel.chmlfrp.cn/register",
+                FileName = "https://panel.chmlfrp.cn/sign",
                 UseShellExecute = true
             });
         }

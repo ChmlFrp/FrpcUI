@@ -57,7 +57,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- 节点名称 -->
-                                <TextBlock Text="{Binding Name}" 
+                                <TextBlock Text="{Binding Name, Mode=TwoWay}" 
                                            x:Name="suidao"
                                           Foreground="#333333" 
                                           FontSize="14"
@@ -139,7 +139,7 @@
 
                     <Button Content="生成" Width="100" Height="30" Padding="5" Margin="0,0,10,0" 
                             Background="#2080f0" Foreground="White" BorderThickness="0"
-                            Click="Shencheng_Click">
+                            Command="{Binding ShenchengCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" 
@@ -200,9 +200,9 @@
 
             <!-- 显示配置 -->
             <ScrollViewer  Background="White" Padding="15" Margin="10,10,10,10" VerticalScrollBarVisibility="Auto"
-              HorizontalScrollBarVisibility="Disabled" BorderBrush="#E0E0E0" BorderThickness="1" >
+              HorizontalScrollBarVisibility="Disabled" BorderThickness="1" >
                 <TextBox x:Name="configText" 
-                         Text="" 
+                         Text="{Binding ConfigText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          FontFamily="Consolas" 
                          FontSize="14"
                          IsReadOnly="False" 

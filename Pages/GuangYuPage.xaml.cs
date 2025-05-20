@@ -15,16 +15,6 @@ namespace FrpcUI.Pages
         public GuangyuPage()
         {
             InitializeComponent();
-
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var informationalVersion = Assembly
-                .GetExecutingAssembly()
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-                .InformationalVersion ?? $"{version.Major}.{version.Minor}.{version.Build}";
-
-            VersionInfo = $"Version {informationalVersion}";
-
-            DataContext = this;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace FrpcUI.Class
 {
@@ -76,6 +77,19 @@ namespace FrpcUI.Class
             }
         }
 
+        private string _configText;
+        public string ConfigText
+        {
+            get => _configText;
+            set
+            {
+                if (_configText != value)
+                {
+                    _configText = value;
+                    OnPropertyChanged(nameof(ConfigText));
+                }
+            }
+        }
 
 
         public SuidaoModel SelectedNode
@@ -132,10 +146,11 @@ namespace FrpcUI.Class
 
             UniqueNodeModels = new ObservableCollection<SuidaoModel>(uniqueNodes);
 
-            if (UniqueNodeModels.Count > 0)
+            if (SelectedNode == null && UniqueNodeModels.Count > 0)
             {
                 SelectedNode = UniqueNodeModels[0];
             }
+
         }
 
         // 属性更改通知方法
@@ -241,11 +256,6 @@ namespace FrpcUI.Class
 
                 UpdateUniqueNodes();
 
-                if (SuidaoModels.Count > 0)
-                {
-                    SelectedNode = SuidaoModels[0];
-                    SelectedSuidao = SuidaoModels[0];
-                }
             }
             catch (Exception ex)
             {
@@ -301,5 +311,16 @@ namespace FrpcUI.Class
         {
             MessageBox.Show(message);
         }
+
+        public ICommand ShenchengCommand => new RelayCommand(async _ =>
+        {
+            if (SelectedNode != null)
+            {
+                string configData = await new PeizhiModel(SelectedNode.Node, SelectedSuidao.Name).LoadDataAsync();
+                ConfigText = configData;
+            }
+        });
+
+
     }
 }

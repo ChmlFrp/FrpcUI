@@ -95,7 +95,7 @@ namespace FrpcUI.Class
                 using var response = await _httpClient.PostAsync(urlAPI, content).ConfigureAwait(false);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 JObject keyValuePairs = JObject.Parse(responseBody);
-                string state = keyValuePairs["state"].ToString();
+                string Msg = keyValuePairs["msg"].ToString();
 
 
                 if (!response.IsSuccessStatusCode)
@@ -103,13 +103,16 @@ namespace FrpcUI.Class
                     MessageBox.Show($"发送失败，状态码：{response.StatusCode}");
                     return false;
                 }
-                switch (state.ToLower().Trim()) // 使用Trim()去除可能的前后空格
+                switch (Msg.ToLower().Trim()) // 使用Trim()去除可能的前后空格
                 {
-                    case "success":
+                    case "隧道创建成功":
                         MessageBox.Show($"创建成功，状态码：{response.StatusCode}");
                         return true;
-                    case "fail":
-                        MessageBox.Show($"创建失败，请检查输入是否正确{response.StatusCode}");
+                    case "隧道名称已被占用":
+                        MessageBox.Show($"创建失败，隧道名称已被占用");
+                        return false;
+                    case "隧道名不符合规范，仅允许字母、数字和下划线":
+                        MessageBox.Show($"隧道名不符合规范，仅允许字母、数字和下划线");
                         return false;
                     default: // 增加默认情况
                         MessageBox.Show($"创建失败，请检查输入是否正确{response.StatusCode}");

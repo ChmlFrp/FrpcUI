@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrpcUI"
         mc:Ignorable="d" Name="home"
-        Title="MainWindow" Width="1200" Height="670"
+        Title="FrpcUI" Width="1200" Height="670"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         Background="Transparent" AllowsTransparency="True"
         ResizeMode="CanResize" WindowState="Normal">
