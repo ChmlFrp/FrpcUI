@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrpcUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51259a7eed44c4f54b13bacdae24ba3616df5af0")]
+<<<<<<< HEAD
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18a62892f4ac262a9676c2e67c21383c86cb5b73")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+debc34d47a8ea88bee73bfdf4c5530b47a93820b")]
+>>>>>>> 18a62892f4ac262a9676c2e67c21383c86cb5b73
 [assembly: System.Reflection.AssemblyProductAttribute("FrpcUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrpcUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

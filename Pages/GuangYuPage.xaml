@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="615" d:DesignWidth="950"
       Title="关于"
-      Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+      Background="{DynamicResource SecundaryBackgroundColor}">
 
     <!-- 使用 ViewBox 来自动缩放内容 -->
     <controls:Viewbox>
