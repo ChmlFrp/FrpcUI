@@ -9,6 +9,7 @@ using System.Windows;
 
 namespace FrpcUI.Class
 {
+    // PeizhiModel 类用于表示配置模型，并提供数据加载、处理和错误显示的功能
     public class PeizhiModel
     {
         private static readonly HttpClient _httpClient = new HttpClient();
@@ -31,18 +32,14 @@ namespace FrpcUI.Class
 
         public ObservableCollection<PeizhiModel> PeizhiList { get; } = new ObservableCollection<PeizhiModel>();
 
-        // 主构造函数
+        // 主构造函数，初始化 Node 和 Name 属性
         public PeizhiModel(string node, string name = null)
         {
             Node = node;
             Name = name;
         }
 
-        // 私有构造函数用于JSON反序列化
-        private PeizhiModel()
-        {
-        }
-
+        // 异步加载数据的方法
         public async Task<string> LoadDataAsync()
         {
             try
@@ -70,6 +67,7 @@ namespace FrpcUI.Class
             return string.Empty;
         }
 
+        // 创建POST请求数据的方法
         private Dictionary<string, string> CreatePostData(string token)
         {
             var postData = new Dictionary<string, string>
@@ -86,6 +84,7 @@ namespace FrpcUI.Class
             return postData;
         }
 
+        // 处理HTTP响应的方法
         private async Task<string> ProcessResponse(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
@@ -100,7 +99,7 @@ namespace FrpcUI.Class
             if (!ValidateResponseState(responseJson))
                 return string.Empty;
 
-            // 更新当前实例属性
+            // 更新当前实例的属性
             this.Code = responseJson["code"]?.ToObject<long>() ?? 0;
             this.Data = responseJson["data"]?.ToString() ?? string.Empty;
             this.Msg = responseJson["msg"]?.ToString() ?? string.Empty;
@@ -109,6 +108,7 @@ namespace FrpcUI.Class
             return this.Data;
         }
 
+        // 验证响应状态的方法
         private bool ValidateResponseState(JObject responseJson)
         {
             var state = responseJson["state"]?.ToString().ToLower();
@@ -128,6 +128,7 @@ namespace FrpcUI.Class
             return false;
         }
 
+        // 显示错误信息的方法
         private static void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);

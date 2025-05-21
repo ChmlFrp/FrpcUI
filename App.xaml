@@ -355,10 +355,10 @@
                             <Grid>
                                 <!-- 主边框 -->
                                 <Border x:Name="MainBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="8"/>
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="8"/>
 
                                 <!-- 内容区域 -->
                                 <Grid Margin="2">
@@ -383,18 +383,18 @@
 
                                     <!-- 下拉按钮（带箭头图标） -->
                                     <ToggleButton x:Name="ToggleButton"
-                            Grid.Column="1"
-                            Focusable="false"
-                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                            ClickMode="Press">
+                                                    Grid.Column="1"
+                                                    Focusable="false"
+                                                    IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    ClickMode="Press">
                                         <ToggleButton.Template>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border Background="Transparent">
                                                     <Path x:Name="Arrow"
-                                            Fill="#333333"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="M0,0 L4,4 8,0 Z"/>
+                                                            Fill="#333333"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Data="M0,0 L4,4 8,0 Z"/>
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
@@ -408,18 +408,18 @@
 
                                 <!-- 下拉弹出框 -->
                                 <Popup x:Name="Popup"
-                        Placement="Bottom"
-                        IsOpen="{TemplateBinding IsDropDownOpen}"
-                        AllowsTransparency="True"
-                        Focusable="True"
-                        StaysOpen="False"
-                        PopupAnimation="Slide">
+                                        Placement="Bottom"
+                                        IsOpen="{TemplateBinding IsDropDownOpen}"
+                                        AllowsTransparency="True"
+                                        Focusable="True"
+                                        StaysOpen="False"
+                                        PopupAnimation="Slide">
                                     <Border x:Name="DropDownBorder"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8"
-                            Margin="0,5,0,0">
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="8"
+                                            Margin="0,5,0,0">
                                         <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                             <ItemsPresenter/>
                                         </ScrollViewer>

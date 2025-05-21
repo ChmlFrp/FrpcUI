@@ -3,7 +3,7 @@
 
     <!-- Background Colors -->
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f3f3f3"/>
-    <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#f9f9f9"/>
+    <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="White"/>
 
     <!-- Primary Colors -->
     <SolidColorBrush x:Key="PrimaryBlueColor" Color="#5B7FFF"/>
@@ -11,7 +11,7 @@
     
     <!-- Secundary Colors -->
     <SolidColorBrush x:Key="SecundaryBlueColor" Color="#CEE8FB"/>
-    <SolidColorBrush x:Key="SecundaryGrayColor" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="SecundaryGrayColor" Color="#f9f9f9"/>
 
     <!-- Typograhy Colors -->
     <SolidColorBrush x:Key="TextPrimaryColor" Color="#020F16"/>

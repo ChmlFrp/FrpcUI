@@ -40,9 +40,9 @@
                           x:Name="nodeComboBox"
                           VerticalAlignment="Center"
                           Style="{StaticResource RoundedComboBoxStyle}"
-                          Background="#E6F3FF"
-                          Foreground="#cfe2f3"
-                          BorderBrush="#cfe2f3"
+                          Background="#edffff"
+                          Foreground="#edffff"
+                          BorderBrush="#edffff"
                           BorderThickness="1"
                           HorizontalAlignment="Left"
                           ItemsSource="{Binding IniFiles}"
@@ -76,17 +76,17 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
                                         <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                SnapsToDevicePixels="True">
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="4"
+                                                SnapsToDevicePixels="True">
                                             <ContentPresenter x:Name="contentPresenter"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          Content="{TemplateBinding Content}"
-                                          Margin="8,0"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                              Content="{TemplateBinding Content}"
+                                                              Margin="8,0"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <!-- 鼠标悬停效果 -->
@@ -203,10 +203,10 @@
             <!-- 兑换码 -->
             <TextBlock Text="使用兑换码" FontSize="16" FontWeight="SemiBold" Margin="0,55,0,4"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Border Width="200" Height="35"  CornerRadius="10"  Margin="0,0,10,0" Background="#F5F5F5" Opacity="0.4">
+                <Border Width="250" Height="35"  CornerRadius="10"  Margin="0,0,10,0" Background="#F5F5F5" Opacity="0.4">
                     <TextBox Width="Auto"  Height="Auto" Text="还在开发中~" BorderThickness="0" Background="Transparent" Foreground="#424242" FontSize="14" IsReadOnly="True" VerticalAlignment="Center" />
                 </Border>
-                <Button Content="兑换" Width="50" Height="25" Background="#8E54E5" BorderBrush="#E0E0E0" Margin="80,8" Foreground="#F5F5F5">
+                <Button Content="兑换" Width="50" Height="25" Background="#8E54E5" BorderBrush="#E0E0E0" Margin="30,8" Foreground="#F5F5F5">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" 
@@ -242,7 +242,7 @@
             <ItemsControl ItemsSource="{Binding HomeModels}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border  CornerRadius="10" Background="White" Padding="20" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <Border  CornerRadius="10" Background="White" Padding="20"  BorderThickness="1">
                             <Grid>
                                 <!-- 上半部分 -->
                                 <Grid.RowDefinitions>

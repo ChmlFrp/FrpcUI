@@ -10,7 +10,7 @@
         Background="Transparent" AllowsTransparency="True"
         ResizeMode="CanResize" WindowState="Normal">
 
-    <Border  CornerRadius="8" Background="{DynamicResource PrimaryBackgroundColor}" MouseDown="Border_MouseDown" >
+    <Border  CornerRadius="8" Background="{DynamicResource SecundaryBackgroundColor}" MouseDown="Border_MouseDown" >
         <Grid ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>

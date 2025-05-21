@@ -90,7 +90,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <!-- Selected  -->
-                            <Border x:Name="btnSelected" Grid.ColumnSpan="2" CornerRadius="4" Width="210" HorizontalAlignment="Right"/>
+                            <Border x:Name="btnSelected" Grid.ColumnSpan="2" CornerRadius="8" Width="180"  HorizontalAlignment="Left"/>
                             <!-- Indicator -->
                             <Rectangle Name="Indicator" HorizontalAlignment="Left" Width="4" Height="40" VerticalAlignment="Center" RadiusX="2" RadiusY="2"/>
                             <!-- Icon -->

@@ -4,10 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
+      Background="{DynamicResource SecundaryBackgroundColor}"
       d:DesignHeight="615" d:DesignWidth="950"
       Title="ConfigPage">
 
-    <Grid Background="#F4F5F7" Margin="20">
+    <Grid  Margin="20">
         <StackPanel HorizontalAlignment="Center" Width="910">
             <TextBlock Text="配置文件" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
 
@@ -20,9 +21,9 @@
                           ItemsSource="{Binding UniqueNodeModels}" 
                           SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
                           Style="{StaticResource RoundedComboBoxStyle}"
-                          Background="#E6F3FF" 
-                          Foreground="#cfe2f3" 
-                          BorderBrush="#cfe2f3" 
+                          Background="#edffff" 
+                          Foreground="#edffff" 
+                          BorderBrush="#edffff" 
                           BorderThickness="1">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -35,7 +36,6 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <!-- 绿色风格的ComboBox -->
                 <ComboBox Width="300" 
                           Margin="35,0,0,0" 
                           VerticalAlignment="Center" 
@@ -43,9 +43,9 @@
                           SelectedItem="{Binding SelectedSuidao, Mode=TwoWay}"
                           
                           Style="{StaticResource RoundedComboBoxStyle}"
-                          Background="#E6F3FF" 
-                          Foreground="#cfe2f3" 
-                          BorderBrush="#cfe2f3"  
+                          Background="#edffff" 
+                          Foreground="#edffff" 
+                          BorderBrush="#edffff"  
                           BorderThickness="1">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

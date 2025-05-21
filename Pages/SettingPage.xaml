@@ -82,8 +82,8 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
-    <Grid Background="#F5F5F5">
+
+    <Grid Background="{DynamicResource SecundaryBackgroundColor}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ToggleButton Content="最小化到任务托盘" Style="{StaticResource AnimatedRadioButton}" 
                           Checked="OnMinimizeChecked" Unchecked="OnMinimizeUnchecked"/>
