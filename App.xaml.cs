@@ -185,5 +185,18 @@ namespace FrpcUI
                 Shutdown();
             }
         }
+
+        public void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is Window window)
+            {
+                // 计算屏幕中心
+                var screenWidth = SystemParameters.PrimaryScreenWidth;
+                var screenHeight = SystemParameters.PrimaryScreenHeight;
+
+                window.Left = (screenWidth - window.ActualWidth) / 2;
+                window.Top = (screenHeight - window.ActualHeight) / 2;
+            }
+        }
     }
 }

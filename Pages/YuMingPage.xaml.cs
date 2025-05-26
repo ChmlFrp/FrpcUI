@@ -1,15 +1,36 @@
-﻿using System.Windows.Controls;
+﻿using FrpcUI.Class;
+using FrpcUI.Class.ViewModel;
+using FrpcUI.Windows;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace FrpcUI.Pages
 {
     /// <summary>
-    /// Lógica de interacción para PaymentPage.xaml
+    /// 域名管理页面
     /// </summary>
-    public partial class PaymentPage : Page
+    public partial class YuMingPage : Page
     {
-        public PaymentPage()
+        public YuMingPage()
         {
             InitializeComponent();
+            Loaded += async (s, e) =>
+            {
+                this.DataContext = await TencentViewModel.CreateAsync();
+            };
+        }
+
+        public void addYuMing_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void addKey_Click(object sender, RoutedEventArgs e)
+        {
+            TencentSecret tencentSecret = new TencentSecret();
+            tencentSecret.Style = (Style)Application.Current.Resources[typeof(Window)];
+            tencentSecret.ShowDialog();
         }
     }
 }

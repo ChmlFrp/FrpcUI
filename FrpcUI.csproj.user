@@ -19,6 +19,9 @@
     <Compile Update="Windows\Cuangjiansuidao.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\TencentSecret.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Tianjiasuidao.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

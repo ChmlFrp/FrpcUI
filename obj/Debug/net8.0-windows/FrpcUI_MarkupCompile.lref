@@ -1,4 +1,4 @@
-﻿D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+﻿
 FD:\FTP\FrpcUI\FrpcUI\App.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\MainWindow.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Pages\GuangYuPage.xaml;;
@@ -8,6 +8,7 @@ FD:\FTP\FrpcUI\FrpcUI\Pages\SettingPage.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Pages\SuiDaoPage.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Pages\YuMingPage.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Windows\Cuangjiansuidao.xaml;;
+FD:\FTP\FrpcUI\FrpcUI\Windows\TencentSecret.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Windows\Tianjiasuidao.xaml;;
 FD:\FTP\FrpcUI\FrpcUI\Windows\Tianjiasuidao2.xaml;;
 

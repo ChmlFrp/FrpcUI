@@ -32,6 +32,7 @@ namespace FrpcUI.Windows
         {
             // 实例化Window
             Tianjiasuidao tianjiasuiddao = new Tianjiasuidao();
+            tianjiasuiddao.Style = (Style)Application.Current.Resources[typeof(Window)];
             tianjiasuiddao.Show();
             this.Close();
         }
@@ -41,6 +42,7 @@ namespace FrpcUI.Windows
             string Jianzhan = jianzhan.Text;
             // 实例化Window
             Cuangjiansuidao cuangjiansuidao = new Cuangjiansuidao(Name, Jianzhan);
+            cuangjiansuidao.Style = (Style)Application.Current.Resources[typeof(Window)];
             cuangjiansuidao.Show();
             this.Close();
         }

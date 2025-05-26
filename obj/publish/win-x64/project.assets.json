@@ -98,6 +98,50 @@
           }
         }
       },
+      "System.Text.Encodings.Web/4.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "TencentCloudSDK.Common/3.0.1244": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "System.Text.Encodings.Web": "4.5.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/TencentCloudCommon.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TencentCloudCommon.dll": {}
+        }
+      },
+      "TencentCloudSDK.Dnspod/3.0.1244": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2",
+          "System.Text.Encodings.Web": "4.5.1",
+          "TencentCloudSDK.Common": "3.0.1244"
+        },
+        "compile": {
+          "lib/netstandard2.0/TencentCloudDnspod.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/TencentCloudDnspod.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "WpfAnimatedGif/2.0.2": {
         "type": "package",
         "compile": {
@@ -198,6 +242,50 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Text.Encodings.Web/4.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "TencentCloudSDK.Common/3.0.1244": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "System.Text.Encodings.Web": "4.5.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/TencentCloudCommon.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TencentCloudCommon.dll": {}
+        }
+      },
+      "TencentCloudSDK.Dnspod/3.0.1244": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2",
+          "System.Text.Encodings.Web": "4.5.1",
+          "TencentCloudSDK.Common": "3.0.1244"
+        },
+        "compile": {
+          "lib/netstandard2.0/TencentCloudDnspod.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/TencentCloudDnspod.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WpfAnimatedGif/2.0.2": {
@@ -391,6 +479,53 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "System.Text.Encodings.Web/4.5.1": {
+      "sha512": "8lfETN/1lu0QD+XQaDCxn6InX3KYJHCFO6Iqrm92zn9eOEeonTuyisKxW0nLZfse598LibhEItiRdPzVn8Beyg==",
+      "type": "package",
+      "path": "system.text.encodings.web/4.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard1.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard1.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.4.5.1.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "TencentCloudSDK.Common/3.0.1244": {
+      "sha512": "BMEx7j/Pa+UJtBFOhu72SlGHXMmkV5KGsnkVP2krW5NkXOActqYG6O4g4x6r2cXGPfxL7jl5he19jH/7xcKT9A==",
+      "type": "package",
+      "path": "tencentcloudsdk.common/3.0.1244",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/TencentCloudCommon.dll",
+        "lib/netstandard2.0/TencentCloudCommon.dll",
+        "tencentcloudsdk.common.3.0.1244.nupkg.sha512",
+        "tencentcloudsdk.common.nuspec"
+      ]
+    },
+    "TencentCloudSDK.Dnspod/3.0.1244": {
+      "sha512": "RvM/UKAstfhMM/cZsbrvIoZnEQM/KQSR7wua4pQkjLFekwD80/epDhESJZ+2OQ1P9qcBlDowZY8FtqwT6t+35w==",
+      "type": "package",
+      "path": "tencentcloudsdk.dnspod/3.0.1244",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/TencentCloudDnspod.dll",
+        "lib/net45/TencentCloudDnspod.xml",
+        "lib/netstandard2.0/TencentCloudDnspod.dll",
+        "lib/netstandard2.0/TencentCloudDnspod.xml",
+        "tencentcloudsdk.dnspod.3.0.1244.nupkg.sha512",
+        "tencentcloudsdk.dnspod.nuspec"
+      ]
+    },
     "WpfAnimatedGif/2.0.2": {
       "sha512": "B0j9SqtThyHVTiOPvu6yR+39Te0g3o+7Jjb+qEm7+Iz1HRqbE5/4QV+ntHWOYYBPOUFr9x1mdzGl/EzWP+nKiA==",
       "type": "package",
@@ -419,6 +554,8 @@
       "Newtonsoft.Json >= 13.0.3",
       "System.Data.DataSetExtensions >= 4.6.0-preview3.19128.7",
       "System.Drawing.Common >= 7.0.0",
+      "TencentCloudSDK.common >= 3.0.1244",
+      "TencentCloudSDK.dnspod >= 3.0.1244",
       "WpfAnimatedGif >= 2.0.2"
     ]
   },
@@ -494,6 +631,14 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "TencentCloudSDK.common": {
+            "target": "Package",
+            "version": "[3.0.1244, )"
+          },
+          "TencentCloudSDK.dnspod": {
+            "target": "Package",
+            "version": "[3.0.1244, )"
           },
           "WpfAnimatedGif": {
             "target": "Package",

@@ -10,22 +10,21 @@
 
         
         <ResourceDictionary>
-            
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/LightTheme.xaml"/>
-                
+
                 <ResourceDictionary Source="Assets/Icons/Icons.xaml"/>
 
                 <ResourceDictionary Source="Styles/MainStyle.xaml"/>
 
-                
-                
+
+
             </ResourceDictionary.MergedDictionaries>
+
             <Style TargetType="Window">
-                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                <Setter Property="AllowsTransparency" Value="True"/>
-                <Setter Property="WindowStyle" Value="None"/>
-                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <EventSetter Event="Loaded" Handler="Window_Loaded" />
             </Style>
 
             <Style x:Key="TitleText" TargetType="TextBlock">

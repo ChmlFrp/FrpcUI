@@ -54,10 +54,9 @@
 
             <!-- 附加信息 -->
             <StackPanel Grid.Row="4" VerticalAlignment="Top" Margin="0,10,0,0" >
-                <TextBlock Text="Copyright © 2024 - 2025 纯爱战神" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                 <TextBlock Text="Powered by .NET 8" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                 <!-- 版本信息 -->
-                <TextBlock Grid.Row="1" Text="Version 1.0.0" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <TextBlock Grid.Row="1" Text="Version 1.1.0" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
                     <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">
                         <Hyperlink NavigateUri="https://www.chmlfrp.cn/" RequestNavigate="Hyperlink_RequestNavigate">

@@ -8,5 +8,7 @@ C:\Users\樊高峰\Desktop\FrpcUI\FrpcUI.pdb
 C:\Users\樊高峰\Desktop\FrpcUI\CommunityToolkit.Mvvm.dll
 C:\Users\樊高峰\Desktop\FrpcUI\CredentialManagement.dll
 C:\Users\樊高峰\Desktop\FrpcUI\Newtonsoft.Json.dll
+C:\Users\樊高峰\Desktop\FrpcUI\TencentCloudCommon.dll
+C:\Users\樊高峰\Desktop\FrpcUI\TencentCloudDnspod.dll
 C:\Users\樊高峰\Desktop\FrpcUI\WpfAnimatedGif.dll
 C:\Users\樊高峰\Desktop\FrpcUI\FrpcUI.dll

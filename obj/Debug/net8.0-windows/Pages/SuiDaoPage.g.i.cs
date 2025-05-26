@@ -70,7 +70,7 @@ namespace FrpcUI.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrpcUI;V1.0.0.0;component/pages/suidaopage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrpcUI;component/pages/suidaopage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Pages\SuiDaoPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

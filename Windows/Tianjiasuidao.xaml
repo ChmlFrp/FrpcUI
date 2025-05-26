@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        
-        xmlns:converters="clr-namespace:FrpcUI.Class"
+        Background="{DynamicResource SecundaryBackgroundColor}"
+        xmlns:converters="clr-namespace:FrpcUI.Class" xmlns:controls="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
         mc:Ignorable="d"
-        Title="节点列表" >
+        Title="节点列表" d:DesignWidth="625" >
     <Window.Resources>
 
         <converters:WebToTextConverter x:Key="WebToTextConverter"/>
@@ -95,7 +95,7 @@
                                             <TextBlock Text="{Binding Nodegroup, Converter={StaticResource WebToTextConverter}}" 
                                                         Foreground="{Binding Nodegroup, Converter={StaticResource WebToTextColorConverter}}" 
                                                         FontSize="10" Margin="5,5,5,5" HorizontalAlignment="Center"/>
-                                        </Border> 
+                                        </Border>
                                     </StackPanel>
                                     <!--节点建站-->
                                     <StackPanel Orientation="Horizontal">
@@ -105,9 +105,9 @@
                                                 Foreground="{Binding Web, Converter={StaticResource WebToTextColorConverter}}" 
                                                 FontSize="10" Margin="5,5,5,5"/>
                                         </Border>
-                                       
+
                                     </StackPanel>
-                                    
+
                                     <Button Margin="0,-23,5,5" Height="23" Foreground="#2080f0" Background="#cfe2f3"  
                                             HorizontalAlignment="Right" Width="35" Content="选择" Style="{StaticResource RoundButtonStyle}" 
                                             Click="Suidao_Click">
@@ -142,7 +142,7 @@
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
-                                    
+
                                 </StackPanel>
 
                             </Grid>

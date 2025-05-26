@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4/6dj9iHeQg=",
+  "dgSpecHash": "6ku7GKjWTGU=",
   "success": true,
   "projectFilePath": "D:\\FTP\\FrpcUI\\FrpcUI\\FrpcUI.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "C:\\Users\\樊高峰\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\system.data.datasetextensions\\4.6.0-preview3.19128.7\\system.data.datasetextensions.4.6.0-preview3.19128.7.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\樊高峰\\.nuget\\packages\\system.text.encodings.web\\4.5.1\\system.text.encodings.web.4.5.1.nupkg.sha512",
+    "C:\\Users\\樊高峰\\.nuget\\packages\\tencentcloudsdk.common\\3.0.1244\\tencentcloudsdk.common.3.0.1244.nupkg.sha512",
+    "C:\\Users\\樊高峰\\.nuget\\packages\\tencentcloudsdk.dnspod\\3.0.1244\\tencentcloudsdk.dnspod.3.0.1244.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.16\\microsoft.netcore.app.runtime.win-x64.8.0.16.nupkg.sha512",
     "C:\\Users\\樊高峰\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.16\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.16.nupkg.sha512",

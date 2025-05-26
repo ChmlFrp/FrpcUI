@@ -55,3 +55,7 @@ D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\refint\FrpcUI.dll
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\FrpcUI.pdb
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\FrpcUI.genruntimeconfig.cache
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\ref\FrpcUI.dll
+D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\TencentCloudCommon.dll
+D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\TencentCloudDnspod.dll
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\TencentSecret.g.cs
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\TencentSecret.baml

@@ -23,7 +23,6 @@ namespace FrpcUI
             InitializeComponent();
             this.DataContext = Datum;
             LoadDataAsync();
-
         }
 
         private async void LoadDataAsync()
@@ -124,7 +123,7 @@ namespace FrpcUI
             {
                 // 实例化你的UserControl
                 Tianjiasuidao2 Tianjiasuidao = new Tianjiasuidao2(datum.Name);
-
+                Tianjiasuidao.Style = (Style)Application.Current.Resources[typeof(Window)];
                 Tianjiasuidao.Show();
                 this.Close();
 

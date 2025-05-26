@@ -3,13 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FrpcUI.Windows"
+        xmlns:local="clr-namespace:FrpcUI.Windows" 
+        xmlns:controls="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" 
         mc:Ignorable="d"
-        Title="节点详情" >
-    
-    
-    <Border Margin="10" CornerRadius="8" Background="White"
-            BorderThickness="1" BorderBrush="#FFE0E0E0"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None" Width="700" Height="450" >
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome 
+        CaptionHeight="30"         
+        ResizeBorderThickness="5"
+        GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+    <controls:Viewbox >
+        <Border Width="700" Height="450" CornerRadius="8" Background="White"
+            BorderThickness="1" BorderBrush="#FFE0E0E0" 
             >
 
         <Grid Margin="15">
@@ -118,4 +127,5 @@
             </StackPanel>
         </Grid>
     </Border>
+        </controls:Viewbox>
 </Window>

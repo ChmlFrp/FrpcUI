@@ -73,6 +73,14 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "TencentCloudSDK.common": {
+              "target": "Package",
+              "version": "[3.0.1244, )"
+            },
+            "TencentCloudSDK.dnspod": {
+              "target": "Package",
+              "version": "[3.0.1244, )"
+            },
             "WpfAnimatedGif": {
               "target": "Package",
               "version": "[2.0.2, )"

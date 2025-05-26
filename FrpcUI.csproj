@@ -7,6 +7,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<ApplicationIcon>图标.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="Assets\Avatars\**" />
@@ -59,6 +60,8 @@
 		<PackageReference Include="CredentialManagement" Version="1.0.2" NoWarn="NU1701" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
+		<PackageReference Include="TencentCloudSDK.common" Version="3.0.1244" />
+		<PackageReference Include="TencentCloudSDK.dnspod" Version="3.0.1244" />
 		<PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 	</ItemGroup>

@@ -25,6 +25,7 @@ namespace FrpcUI
         private Peizhiwenjian _peizhiwenjianPage;
         private GuangyuPage _guangyuPage;
         private SettingPage _settingsPage;
+        private YuMingPage _yumingPage;
 
         private const int AnimationDurationMs = 200;
 
@@ -59,11 +60,8 @@ namespace FrpcUI
         private void Peizhiwenjian_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _peizhiwenjianPage);
         private void GuanYU_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _guangyuPage);
         private void Settings_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _settingsPage);
+        private void YuMing_Click(object sender, RoutedEventArgs e) => NavigatePage(ref _yumingPage);
 
-        private void YuMing_Click(object sender, RoutedEventArgs e)
-        {
-            // Future implementation
-        }
 
         #endregion
 

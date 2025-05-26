@@ -38,6 +38,7 @@ namespace FrpcUI.Pages
         {
             // 实例化Window
             Tianjiasuidao tianjiasuiddao = new Tianjiasuidao();
+            tianjiasuiddao.Style = (Style)Application.Current.Resources[typeof(Window)];
             tianjiasuiddao.Show();
         }
 
