@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using FrpcUI.Class;
 using FrpcUI.Pages;
 using System;
 using System.Diagnostics;
