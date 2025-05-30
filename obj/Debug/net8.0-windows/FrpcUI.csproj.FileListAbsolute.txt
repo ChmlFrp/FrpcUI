@@ -1,5 +1,6 @@
 D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\Frpc\frpc.exe
 D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\FrpcUI.exe
+D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\Frp.ico
 D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\FrpcUI.dll.config
 D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\FrpcUI.deps.json
 D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\FrpcUI.runtimeconfig.json
@@ -24,6 +25,7 @@ D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\Peizhiwenjian.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\SettingPage.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\SuiDaoPage.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\YuMingPage.g.cs
+D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\AddDns.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\Cuangjiansuidao.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\TencentSecret.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\Tianjiasuidao.g.cs
@@ -41,6 +43,7 @@ D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\LoginPage.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\SettingPage.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\SuiDaoPage.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Pages\YuMingPage.baml
+D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\AddDns.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\Cuangjiansuidao.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\TencentSecret.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\Tianjiasuidao.baml
@@ -58,12 +61,3 @@ D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\refint\FrpcUI.dll
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\FrpcUI.pdb
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\FrpcUI.genruntimeconfig.cache
 D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\ref\FrpcUI.dll
-D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\AddDns.g.cs
-D:\FTP\FrpcUI\FrpcUI\obj\Debug\net8.0-windows\Windows\AddDns.baml
-<<<<<<< HEAD
-<<<<<<< HEAD
-D:\FTP\FrpcUI\FrpcUI\bin\Debug\net8.0-windows\ICO.ico
-=======
->>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
-=======
->>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
