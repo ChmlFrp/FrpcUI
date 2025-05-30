@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿#pragma checksum "..\..\..\..\Windows\Cuangjiansuidao.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "941F157C584681084AE5CFA87168C34618711EF0"
+=======
+﻿#pragma checksum "..\..\..\..\Windows\Cuangjiansuidao.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "B403C6132AB694AD09758C95B03E7C065D8FE5A6"
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
 =======
 ﻿#pragma checksum "..\..\..\..\Windows\Cuangjiansuidao.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "B403C6132AB694AD09758C95B03E7C065D8FE5A6"
 >>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d

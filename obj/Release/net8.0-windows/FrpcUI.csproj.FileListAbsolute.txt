@@ -61,6 +61,9 @@ D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\TencentSecret.baml
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\AddDns.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\AddDns.baml
 <<<<<<< HEAD
+<<<<<<< HEAD
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\ICO.ico
+=======
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
 =======
 >>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d

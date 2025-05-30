@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿#pragma checksum "..\..\..\..\Windows\AddDns.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "A9106275CF59131FDB5A4235895194722F872B18"
+=======
+﻿#pragma checksum "..\..\..\..\Windows\AddDns.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "7FD4EEFA65E2A08C74EED07B25CCED72007FB2F2"
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
 =======
 ﻿#pragma checksum "..\..\..\..\Windows\AddDns.xaml" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "7FD4EEFA65E2A08C74EED07B25CCED72007FB2F2"
 >>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d

@@ -6,7 +6,11 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+<<<<<<< HEAD
 		<ApplicationIcon>Frp.ico</ApplicationIcon>
+=======
+		<ApplicationIcon>ICO.ico</ApplicationIcon>
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<ItemGroup>
@@ -47,7 +51,11 @@
 		<None Remove="Images\linkedin.png" />
 	</ItemGroup>
 	<ItemGroup>
+<<<<<<< HEAD
 		<Content Include="Frp.ico">
+=======
+		<Content Include="ICO.ico">
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
