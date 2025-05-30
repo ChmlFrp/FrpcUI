@@ -74,12 +74,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="隧道名称" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <Border Grid.Column="1" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Column="1" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="TunnelName" Text="" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" Padding="5"/>
                 </Border>
 
                 <TextBlock Grid.Column="2" Text="本地IP" VerticalAlignment="Center" Margin="20,0,10,0" Width="48"/>
-                <Border Grid.Column="3" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Column="3" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="LocalIP" Text="127.0.0.1" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" Padding="5"/>
                 </Border>
             </Grid>
@@ -94,26 +94,27 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="节点选择" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <Border Grid.Column="1" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
-                    <ComboBox SelectedIndex="0"
-                  VerticalAlignment="Center"
-                  PreviewMouseDown="ComboBox_PreviewMouseDown"
-                  Text="{Binding SelectedNode, Mode=OneWay}"
-                  IsEditable="True"
-                  IsReadOnly="True"
-                  BorderThickness="0"
-                  Background="Transparent" Height="25.24"/>
+                <Border Grid.Column="1" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
+                    <TextBox  VerticalAlignment="Center"
+                              Padding="5"
+                              PreviewMouseDown="ComboBox_PreviewMouseDown"
+                              Text="{Binding SelectedNode, Mode=OneWay}"
+                              VerticalContentAlignment="Center"
+                              IsReadOnly="True"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Background="Transparent" 
+                              Height="25.24"/>
                 </Border>
 
                 <TextBlock Grid.Column="2" Text="端口类型" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                <Border Grid.Column="3" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
-                    <ComboBox x:Name="PortType" SelectedIndex="0" VerticalAlignment="Center" SelectionChanged="PortType_SelectionChanged" BorderThickness="0" Background="Transparent" Height="25.24">
+                <ComboBox Grid.Column="3" x:Name="PortType" SelectedIndex="0"  VerticalAlignment="Center" SelectionChanged="PortType_SelectionChanged"
+                              Style="{StaticResource RoundedComboBoxStyle}" Height="25.24" >
                         <ComboBoxItem>TCP</ComboBoxItem>
                         <ComboBoxItem>UDP</ComboBoxItem>
                         <ComboBoxItem>HTTP</ComboBoxItem>
                         <ComboBoxItem>HTTPS</ComboBoxItem>
                     </ComboBox>
-                </Border>
             </Grid>
 
             <!-- 内网端口和外网端口 -->
@@ -126,12 +127,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="内网端口" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <Border Grid.Column="1" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Column="1" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="InnerPort" Text="" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" Padding="5"/>
                 </Border>
 
                 <TextBlock Grid.Column="2" Text="外网端口" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                <Border Grid.Column="3" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Column="3" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="OuterPort" Text="端口类型为TCP或UDP时输入，否则不填" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" Padding="5"/>
                 </Border>
             </Grid>
@@ -144,7 +145,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="输入域名" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <Border Grid.Column="1" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Column="1" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="Yuming"
                  Text="端口类型为HTTP或HTTPS时输入，否则不填" 
                  VerticalAlignment="Center"
@@ -188,7 +189,7 @@
                 </StackPanel>
 
                 <TextBlock Grid.Row="2" Text="额外参数" Margin="0,0,0,5"/>
-                <Border Grid.Row="3" CornerRadius="4" BorderThickness="1" BorderBrush="#ABADB3">
+                <Border Grid.Row="3" CornerRadius="8" BorderThickness="1" BorderBrush="#ABADB3">
                     <TextBox x:Name="ExtraParams" Height="60" Text="" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0" Background="Transparent" Padding="5"/>
                 </Border>
             </Grid>

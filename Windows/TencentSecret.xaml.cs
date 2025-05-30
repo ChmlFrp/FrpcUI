@@ -1,18 +1,7 @@
 ﻿using FrpcUI.Class.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FrpcUI.Windows
 {
@@ -59,24 +48,13 @@ namespace FrpcUI.Windows
             else
             {
                 SaveTencentKey();
-                
+
                 this.Close();
             }
         }
 
-        private async void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // 从Windows凭据管理器读取
-            try
-            {
-                // 使用工厂方法创建实例
-                var vm = await TencentViewModel.CreateAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"加载失败: {ex.Message}");
-            }
-
             this.Close();
         }
     }

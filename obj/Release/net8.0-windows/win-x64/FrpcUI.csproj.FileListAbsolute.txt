@@ -21,7 +21,6 @@ D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\FrpcUI_MarkupCompile.cac
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\FrpcUI_MarkupCompile.lref
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\Frpc\frpc.exe
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\FrpcUI.exe
-D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\图标.ico
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\FrpcUI.dll.config
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\FrpcUI.deps.json
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\FrpcUI.runtimeconfig.json
@@ -59,3 +58,6 @@ D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\TencentCloudCommon.dll
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\TencentCloudDnspod.dll
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\TencentSecret.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\TencentSecret.baml
+D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\win-x64\ICO.ico
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\AddDns.g.cs
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\win-x64\Windows\AddDns.baml

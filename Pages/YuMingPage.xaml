@@ -14,14 +14,14 @@
         <Label Content="域名管理" Foreground="Black" FontSize="26" FontWeight="Bold"/>
         <DockPanel HorizontalAlignment="Right">
 
-            <Button Click="addYuMing_Click" Content="添加域名" Width="80" Height="25" Background="#FFFFFF" BorderBrush="#E0E0E0" Padding="6,2" Margin="0,0,10,0" Foreground="#333333">
+            <Button Click="addYuMing_Click" Content="新增解析" Width="80" Height="25" Background="#FFFFFF" BorderBrush="#E0E0E0" Padding="6,2" Margin="0,0,10,0" Foreground="#333333">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
-                CornerRadius="5" 
-                Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="1">
+                                CornerRadius="5" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -52,10 +52,10 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
-                CornerRadius="5" 
-                Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="1">
+                                CornerRadius="5" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -130,6 +130,7 @@
                                 <TextBlock  FontSize="12" Foreground="#9C27B0" VerticalAlignment="Bottom" Margin="0,0,0,6">
                                     <Run Text="缓存时间："/>
                                     <Run Text="{Binding TTL}"/>
+                                    <Run Text="秒"/>
                                 </TextBlock>
 
                                 <TextBlock  FontSize="12" Foreground="#9C27B0" VerticalAlignment="Bottom" Margin="0,0,0,6">

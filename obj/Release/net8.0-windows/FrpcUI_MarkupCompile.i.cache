@@ -10,11 +10,15 @@ none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\FTP\FrpcUI\FrpcUI\App.xaml
-15-350763176
+161274631128
+<<<<<<< HEAD
+1-1995283998
+=======
 1636808229
-32-1333002287
+>>>>>>> b10fef5cde66c9801f437a18bc1ecde2990c931d
+34-266600028
 2131102284387
-Assets\Icons\Icons.xaml;MainWindow.xaml;Pages\GuangYuPage.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;Pages\Peizhiwenjian.xaml;Pages\SettingPage.xaml;Pages\SuiDaoPage.xaml;Pages\YuMingPage.xaml;Styles\MainStyle.xaml;Themes\LightTheme.xaml;Windows\Cuangjiansuidao.xaml;Windows\TencentSecret.xaml;Windows\Tianjiasuidao.xaml;Windows\Tianjiasuidao2.xaml;
+Assets\Icons\Icons.xaml;MainWindow.xaml;Pages\GuangYuPage.xaml;Pages\HomePage.xaml;Pages\LoginPage.xaml;Pages\Peizhiwenjian.xaml;Pages\SettingPage.xaml;Pages\SuiDaoPage.xaml;Pages\YuMingPage.xaml;Styles\MainStyle.xaml;Themes\LightTheme.xaml;Windows\AddDns.xaml;Windows\Cuangjiansuidao.xaml;Windows\TencentSecret.xaml;Windows\Tianjiasuidao.xaml;Windows\Tianjiasuidao2.xaml;
 
-False
+True
 

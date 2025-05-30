@@ -54,7 +54,7 @@ namespace FrpcUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrpcUI;component/windows/tianjiasuidao.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrpcUI;V1.0.0.0;component/windows/tianjiasuidao.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windows\Tianjiasuidao.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

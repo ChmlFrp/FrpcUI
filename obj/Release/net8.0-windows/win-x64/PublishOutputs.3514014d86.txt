@@ -1,4 +1,4 @@
-C:\Users\樊高峰\Desktop\FrpcUI\图标.ico
+C:\Users\樊高峰\Desktop\FrpcUI\ICO.ico
 C:\Users\樊高峰\Desktop\FrpcUI\FrpcUI.exe
 C:\Users\樊高峰\Desktop\FrpcUI\Frpc\frpc.exe
 C:\Users\樊高峰\Desktop\FrpcUI\FrpcUI.deps.json

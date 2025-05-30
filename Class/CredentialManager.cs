@@ -3,8 +3,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Security.Cryptography;
-using Microsoft.Win32.SafeHandles;
 
 public class CredentialManager
 {

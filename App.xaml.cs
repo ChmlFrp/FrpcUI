@@ -3,6 +3,7 @@ using FrpcUI.Class;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows;
@@ -69,8 +70,6 @@ namespace FrpcUI
             var loginModel = new LoginModel();
             try
             {
-
-
                 // 1. 从凭据管理器读取用户名和密码
                 using (var cred = new Credential())
                 {
@@ -144,6 +143,23 @@ namespace FrpcUI
 
         private NavigationWindow CreateLoginWindow()
         {
+            // 获取默认 Window 样式
+            var defaultWindowStyle = (Style)Application.Current.Resources[typeof(Window)];
+
+            // 获取自定义样式
+            var hiddenNavigationStyle = (Style)FindResource("HiddenNavigationStyle");
+
+            // 创建合并后的样式
+            var mergedStyle = new Style(typeof(NavigationWindow), defaultWindowStyle);
+
+            // 将 HiddenNavigationStyle 的所有 Setter 添加到合并样式
+            if (hiddenNavigationStyle != null)
+            {
+                foreach (SetterBase setter in hiddenNavigationStyle.Setters)
+                {
+                    mergedStyle.Setters.Add(setter);
+                }
+            }
             return new NavigationWindow
             {
                 Source = new Uri("Pages/LoginPage.xaml", UriKind.Relative),
@@ -152,7 +168,7 @@ namespace FrpcUI
                 Background = Brushes.Transparent,
                 Width = WindowWidth,
                 Height = WindowHeight,
-                Style = (Style)FindResource("HiddenNavigationStyle")
+                Style = mergedStyle
             };
         }
 
