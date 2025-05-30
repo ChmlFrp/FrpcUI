@@ -59,3 +59,5 @@ D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\TencentCloudCommon.dll
 D:\FTP\FrpcUI\FrpcUI\bin\Release\net8.0-windows\TencentCloudDnspod.dll
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\TencentSecret.g.cs
 D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\TencentSecret.baml
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\AddDns.g.cs
+D:\FTP\FrpcUI\FrpcUI\obj\Release\net8.0-windows\Windows\AddDns.baml

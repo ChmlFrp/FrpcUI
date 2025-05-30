@@ -1,7 +1,5 @@
-﻿using FrpcUI.Class;
-using FrpcUI.Class.ViewModel;
+﻿using FrpcUI.Class.ViewModel;
 using FrpcUI.Windows;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 

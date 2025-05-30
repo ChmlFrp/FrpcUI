@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 

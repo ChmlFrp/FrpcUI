@@ -70,7 +70,7 @@ namespace FrpcUI.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrpcUI;component/windows/tencentsecret.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrpcUI;V1.0.0.0;component/windows/tencentsecret.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windows\TencentSecret.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
